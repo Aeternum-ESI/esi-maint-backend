@@ -1,0 +1,86 @@
+model User {
+    id             Int         @id @default(autoincrement())
+    technician     Technician?
+    name           String
+    email          String      @unique
+    password       String
+    avatarUrl      String?
+    role           Role        @default(STAFF)
+    approvalStatus Boolean     @default(false)
+
+    notifications Notification[]
+    reports       Report[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Technician {
+    userId       Int     @id @unique
+    name         String
+    email        String  @unique
+    password     String
+    avatarUrl    String?
+    professionId Int
+    scheduleId   Int
+
+    availabilities TechnicianAvailability[]
+    user           User                     @relation(fields: [userId], references: [id])
+    profession     Profession               @relation(fields: [professionId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Profession {
+    id   Int    @id @default(autoincrement())
+    name String
+
+    technicians Technician[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model TechnicianAvailability {
+    technicianId Int
+    day          Day
+    startTime    String
+    endTime      String
+
+    technician Technician @relation(fields: [technicianId], references: [userId])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([technicianId, day])
+}
+
+model Notification {
+    id      Int     @id @default(autoincrement())
+    userId  Int
+    title   String
+    message String
+    read    Boolean @default(false)
+
+    user User @relation(fields: [userId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+enum Role {
+    STAFF
+    TECHNICIAN
+    ADMIN
+}
+
+enum Day {
+    SUNDAY
+    MONDAY
+    TUESDAY
+    WEDNESDAY
+    THURSDAY
+    FRIDAY
+    SATURDAY
+}

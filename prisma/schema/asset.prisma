@@ -1,0 +1,50 @@
+model Asset {
+    id            Int         @id @default(autoincrement())
+    locationId    Int?
+    categoryId    Int
+    name          String
+    inventoryCode String?
+    status        AssetStatus
+    quantity      Int         @default(1)
+
+    subAssets   Asset[]  @relation("AssetLocation")
+    reports     Report[]
+    parentAsset Asset?   @relation(fields: [locationId], references: [id], name: "AssetLocation")
+    category    Category @relation(fields: [categoryId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Category {
+    id          Int     @id @default(autoincrement())
+    name        String
+    description String?
+    parentId    Int?
+
+    assets      Asset[]
+    children    Category[]        @relation("Parent")
+    Report      Report[]
+    parent      Category?         @relation(fields: [parentId], references: [id], name: "Parent")
+    ancestors   CategoryClosure[] @relation("Ancestor")
+    descendants CategoryClosure[] @relation("Descendant")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model CategoryClosure {
+    ancestorId   Int
+    descendantId Int
+    depth        Int
+
+    ancestor   Category @relation(fields: [ancestorId], references: [id], name: "Ancestor")
+    descendant Category @relation(fields: [descendantId], references: [id], name: "Descendant")
+
+    @@id([ancestorId, descendantId])
+}
+
+enum AssetStatus {
+    OPERATIONAL
+    UNDER_MAINTENANCE
+}
