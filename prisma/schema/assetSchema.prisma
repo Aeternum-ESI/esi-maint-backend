@@ -7,8 +7,10 @@ model Asset {
     status        AssetStatus
     quantity      Int         @default(1)
 
-    subAssets   Asset[]  @relation("AssetLocation")
-    reports     Report[]
+    subAssets    Asset[]                 @relation("AssetLocation")
+    reports      Report[]
+    assignements TechnicianAssignement[]
+
     parentAsset Asset?   @relation(fields: [locationId], references: [id], name: "AssetLocation")
     category    Category @relation(fields: [categoryId], references: [id])
 
@@ -25,9 +27,10 @@ model Category {
     assets      Asset[]
     children    Category[]        @relation("Parent")
     Report      Report[]
-    parent      Category?         @relation(fields: [parentId], references: [id], name: "Parent")
     ancestors   CategoryClosure[] @relation("Ancestor")
     descendants CategoryClosure[] @relation("Descendant")
+
+    parent Category? @relation(fields: [parentId], references: [id], name: "Parent")
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

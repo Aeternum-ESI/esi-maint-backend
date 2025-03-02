@@ -1,0 +1,52 @@
+model InterventionRequest {
+    id        Int                       @id @default(autoincrement())
+    reportId  Int
+    title     String
+    deadline  DateTime
+    priority  Priority
+    status    InterventionRequestStatus
+    createdBy Int
+    type      OperationType
+
+    TechnicianAssignement TechnicianAssignement[]
+    Interventions         Interventions[]
+
+    report  Report @relation(fields: [reportId], references: [id])
+    creator User   @relation(fields: [createdBy], references: [id])
+
+    createdAt DateTime @default(now())
+}
+
+model TechnicianAssignement {
+    id                    Int @id @default(autoincrement())
+    technicianId          Int
+    interventionRequestId Int
+    locationId            Int
+
+    technician          Technician          @relation(fields: [technicianId], references: [userId])
+    interventionRequest InterventionRequest @relation(fields: [interventionRequestId], references: [id])
+    location            Asset               @relation(fields: [locationId], references: [id])
+
+    createdAt DateTime @default(now())
+}
+
+model Interventions {
+    id                    Int    @id @default(autoincrement())
+    interventionRequestId Int
+    description           String
+
+    interventionRequest InterventionRequest @relation(fields: [interventionRequestId], references: [id])
+
+    createdAt DateTime @default(now())
+}
+
+enum Priority {
+    LOW
+    MEDIUM
+    HIGH
+}
+
+enum InterventionRequestStatus {
+    IN_PROGRESS
+    COMPLETED
+}

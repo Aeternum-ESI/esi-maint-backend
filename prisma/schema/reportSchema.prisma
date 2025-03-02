@@ -1,0 +1,43 @@
+model Report {
+    id          Int           @id @default(autoincrement())
+    reporterId  Int
+    assetId     Int?
+    categoryId  Int?
+    description String
+    imageUrl    String?
+    type        OperationType
+    status      ReportStatus
+
+    reporter             User                  @relation(fields: [reporterId], references: [id])
+    asset                Asset?                @relation(fields: [assetId], references: [id])
+    category             Category?             @relation(fields: [categoryId], references: [id])
+    interventionRequests InterventionRequest[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Schedule {
+    id             Int      @id @default(autoincrement())
+    assetId        Int
+    categoryId     Int
+    description    String
+    lastMaintained DateTime
+    period         DateTime
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+enum OperationType {
+    CORRECTIVE
+    PREVENTIVE
+}
+
+enum ReportStatus {
+    PENDING
+    ASSIGNED
+    CANCELED
+    TREATED
+    VALIDATED
+}
