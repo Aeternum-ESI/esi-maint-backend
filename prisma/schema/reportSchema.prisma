@@ -18,12 +18,12 @@ model Report {
 }
 
 model Schedule {
-    id             Int      @id @default(autoincrement())
-    assetId        Int
-    categoryId     Int
-    description    String
-    lastMaintained DateTime
-    period         DateTime
+    id           Int      @id @default(autoincrement())
+    assetId      Int
+    categoryId   Int
+    description  String
+    lastMaintena DateTime
+    period       DateTime
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
