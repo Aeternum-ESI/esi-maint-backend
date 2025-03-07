@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
+import { CategoriesModule } from './modules/categories/categories.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { RolesGuard } from './modules/auth/guards/roles.guard';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    CategoriesModule,
   ],
   controllers: [],
   providers: [

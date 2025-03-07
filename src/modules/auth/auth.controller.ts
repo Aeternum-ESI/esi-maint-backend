@@ -38,20 +38,17 @@ export class AuthController {
   @Public()
   @UseGuards(GoogleOauthGuard)
   @Get('google/callback')
-  async googleAuthCallback(
-    @Req() req,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async googleAuthCallback(@Req() req, @Res() res: Response) {
     try {
       const token = await this.authService.signIn(req.user as GoogleUserDto);
 
       res.cookie('access_token', token, {
-        maxAge: 604800000,
-        sameSite: true,
+        maxAge: 604800000, // 1 semaine
+        sameSite: 'lax',
         secure: false,
       });
-
-      return {};
+      // redirect  to the frontend
+      return res.redirect('http://localhost:3000/auth/me');
     } catch (error) {
       this.logger.error('Error during Google authentication', error);
       throw new HttpException(

@@ -20,17 +20,21 @@ model Asset {
 
 model Category {
     id          Int     @id @default(autoincrement())
-    name        String
+    name        String  @unique
     description String?
     parentId    Int?
 
-    assets      Asset[]
-    children    Category[]        @relation("Parent")
-    Report      Report[]
-    ancestors   CategoryClosure[] @relation("Ancestor")
-    descendants CategoryClosure[] @relation("Descendant")
+    assets Asset[]
 
-    parent Category? @relation(fields: [parentId], references: [id], name: "Parent")
+    // Self-relation for category hierarchy
+    children Category[] @relation("CategoryChildren")
+    parent   Category?  @relation("CategoryChildren", fields: [parentId], references: [id], onDelete: Cascade)
+
+    Report Report[]
+
+    // Relations to closure table
+    ancestors   CategoryClosure[] @relation("CategoryAncestors")
+    descendants CategoryClosure[] @relation("CategoryDescendants")
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -41,8 +45,8 @@ model CategoryClosure {
     descendantId Int
     depth        Int
 
-    ancestor   Category @relation(fields: [ancestorId], references: [id], name: "Ancestor")
-    descendant Category @relation(fields: [descendantId], references: [id], name: "Descendant")
+    ancestor   Category @relation("CategoryAncestors", fields: [ancestorId], references: [id], onDelete: Cascade)
+    descendant Category @relation("CategoryDescendants", fields: [descendantId], references: [id], onDelete: Cascade)
 
     @@id([ancestorId, descendantId])
 }
