@@ -1,9 +1,9 @@
 model Asset {
     id            Int         @id @default(autoincrement())
     locationId    Int?
-    categoryId    Int
+    categoryId    Int?
     name          String
-    inventoryCode String?
+    inventoryCode String
     status        AssetStatus
     quantity      Int         @default(1)
 
@@ -11,8 +11,8 @@ model Asset {
     reports      Report[]
     assignements TechnicianAssignement[]
 
-    parentAsset Asset?   @relation(fields: [locationId], references: [id], name: "AssetLocation")
-    category    Category @relation(fields: [categoryId], references: [id])
+    parentAsset Asset?    @relation(fields: [locationId], references: [id], name: "AssetLocation")
+    category    Category? @relation(fields: [categoryId], references: [id], onUpdate: SetNull)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

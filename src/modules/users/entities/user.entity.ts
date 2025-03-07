@@ -1,8 +1,7 @@
 import { Role } from '@prisma/client';
 
 export class User {
-  id: string;
+  id: number;
   email: string;
   role: Role;
-  // ... other properties
 }

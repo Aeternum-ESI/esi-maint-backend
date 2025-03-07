@@ -8,8 +8,8 @@ import {
 import { Reflector } from '@nestjs/core';
 import { Role } from '@prisma/client';
 import { ROLES_KEY } from 'src/modules/auth/decorators/roles.decorator';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
+import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class RolesGuard implements CanActivate {

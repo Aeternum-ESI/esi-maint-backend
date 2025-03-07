@@ -11,6 +11,8 @@ import {
 import { CreateCategoryDto } from './dtos/createCategory.dto';
 import { UpdateCategoryDto } from './dtos/updateCategory.dto';
 import { CategoriesService } from './categories.service';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '@prisma/client';
 
 @Controller('categories')
 export class CategoriesController {
@@ -21,6 +23,7 @@ export class CategoriesController {
     return this.categoriesService.getAllCategories();
   }
 
+  @Roles(Role.ADMIN)
   @Post()
   createCategory(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.createCategory(createCategoryDto);
@@ -31,6 +34,7 @@ export class CategoriesController {
     return this.categoriesService.getCategoryById(id);
   }
 
+  @Roles(Role.ADMIN)
   @Put('/:id')
   updateCategory(
     @Param('id', ParseIntPipe) id: number,
@@ -39,6 +43,7 @@ export class CategoriesController {
     return this.categoriesService.updateCategory(id, updateCategoryDto);
   }
 
+  @Roles(Role.ADMIN)
   @Delete('/:id')
   deleteCategory(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.deleteCategory(id);

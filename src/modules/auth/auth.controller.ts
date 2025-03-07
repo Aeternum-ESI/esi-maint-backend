@@ -20,15 +20,11 @@ import { Public } from './decorators/public.decorator';
 import { RolesGuard } from './guards/roles.guard';
 import { Roles } from './decorators/roles.decorator';
 import { Role } from '@prisma/client';
-import { PrismaService } from '../prisma/prisma.service';
 
 @Controller('auth')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
-  constructor(
-    private readonly authService: AuthService,
-    private readonly prismaService: PrismaService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Public()
   @UseGuards(GoogleOauthGuard)

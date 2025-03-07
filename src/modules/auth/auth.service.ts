@@ -1,4 +1,3 @@
-import { PrismaService } from './../prisma/prisma.service';
 import {
   BadRequestException,
   Injectable,
@@ -6,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { GoogleUserDto } from './dtos/register.dto';
+import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class AuthService {
