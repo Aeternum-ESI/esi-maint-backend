@@ -31,9 +31,8 @@ export class AuthService {
       }
 
       return await this.generateJwt({
-        sub: userExists.id,
+        id: userExists.id,
         email: userExists.email,
-        role: userExists.role,
       });
     } catch (e) {
       throw new InternalServerErrorException('Error while Signing In', e);
@@ -52,7 +51,7 @@ export class AuthService {
       });
 
       return this.generateJwt({
-        sub: newUser.id,
+        id: newUser.id,
         email: newUser.email,
       });
     } catch {

@@ -1,25 +1,21 @@
 import {
-  Body,
   Controller,
   Get,
   HttpException,
   HttpStatus,
-  InternalServerErrorException,
   Logger,
-  Post,
   Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { GoogleUserDto } from './dtos/register.dto';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Public } from './decorators/public.decorator';
-import { RolesGuard } from './guards/roles.guard';
-import { Roles } from './decorators/roles.decorator';
-import { Role } from '@prisma/client';
+
+import { User } from './decorators/user.decorator';
+import { JwtPayload } from './dtos/jwtPayload';
 
 @Controller('auth')
 export class AuthController {
@@ -43,6 +39,7 @@ export class AuthController {
         sameSite: 'lax',
         secure: false,
       });
+
       // redirect  to the frontend
       return res.redirect('http://localhost:3000/auth/me');
     } catch (error) {
@@ -55,7 +52,7 @@ export class AuthController {
   }
 
   @Get('me')
-  async me(@Req() req: Request) {
-    return req.user;
+  async me(@User() User: JwtPayload) {
+    return User;
   }
 }

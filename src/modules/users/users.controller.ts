@@ -11,11 +11,12 @@ import {
   Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { User } from './entities/user.entity';
 import { RoleDto } from './dtos/askPromotion.dto';
 import { ValidatePromotionDto } from './dtos/validatePromotionRequest.dto';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '@prisma/client';
+import { JwtPayload } from '../auth/dtos/jwtPayload';
+import { User } from '../auth/decorators/user.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -29,8 +30,8 @@ export class UsersController {
   // Reset necessary roles for this endpoint
   @Roles()
   @Post('/askpromotion')
-  askPromotion(@Body() askPromotionDto: RoleDto, @Req() req: { user: User }) {
-    return this.usersService.askPromotion(req.user.id, askPromotionDto.role);
+  askPromotion(@Body() askPromotionDto: RoleDto, @User() User: JwtPayload) {
+    return this.usersService.askPromotion(User.id, askPromotionDto.role);
   }
 
   @Get('/promotionrequests')

@@ -39,5 +39,4 @@ enum ReportStatus {
     ASSIGNED
     CANCELED
     TREATED
-    VALIDATED
 }

@@ -109,7 +109,6 @@ export class AssetsService {
     }
 
     // Validate based on asset type
-    console.log(assetType);
     switch (assetType) {
       case AssetType.EQUIPMENT:
         if (

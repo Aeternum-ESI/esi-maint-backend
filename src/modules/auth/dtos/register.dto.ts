@@ -1,5 +1,3 @@
-import { IsEmail, IsString, MinLength } from 'class-validator';
-
 export class GoogleUserDto {
   provider: string;
   providerId: number;

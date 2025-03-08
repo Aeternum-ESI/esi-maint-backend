@@ -11,8 +11,8 @@ model Asset {
     reports      Report[]
     assignements TechnicianAssignement[]
 
-    location Asset?    @relation(fields: [locationId], references: [id], name: "AssetLocation")
-    category Category? @relation(fields: [categoryId], references: [id], onUpdate: SetNull)
+    location Asset?    @relation(fields: [locationId], references: [id], name: "AssetLocation", onDelete: SetNull)
+    category Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

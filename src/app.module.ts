@@ -9,6 +9,7 @@ import { CategoriesModule } from './modules/categories/categories.module';
 import { PrismaModule } from 'nestjs-prisma';
 import { ProfessionsModule } from './modules/professions/professions.module';
 import { AssetsModule } from './modules/assets/assets.module';
+import { ReportsModule } from './modules/reports/reports.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { AssetsModule } from './modules/assets/assets.module';
     CategoriesModule,
     ProfessionsModule,
     AssetsModule,
+    ReportsModule,
   ],
   controllers: [],
   providers: [
