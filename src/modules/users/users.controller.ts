@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Put,
   Req,
@@ -34,11 +35,6 @@ export class UsersController {
   @Get('/promotionrequests')
   getPromotionRequests() {
     return this.usersService.getPromotionRequests();
-  }
-
-  @Get('/technicians')
-  getTechnicians() {
-    return this.usersService.getTechnicians();
   }
 
   @Get('/:id')

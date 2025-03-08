@@ -16,14 +16,14 @@ import { UpdateProfessionDto } from './dto/update-profession.dto';
 export class ProfessionsController {
   constructor(private readonly professionsService: ProfessionsService) {}
 
-  @Post()
-  create(@Body() createProfessionDto: CreateProfessionDto) {
-    return this.professionsService.create(createProfessionDto);
-  }
-
   @Get()
   findAll() {
     return this.professionsService.findAll();
+  }
+
+  @Post()
+  create(@Body() createProfessionDto: CreateProfessionDto) {
+    return this.professionsService.create(createProfessionDto);
   }
 
   @Get(':id')

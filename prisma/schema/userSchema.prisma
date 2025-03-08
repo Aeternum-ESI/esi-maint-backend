@@ -25,7 +25,7 @@ model Technician {
 
     availabilities TechnicianAvailability[]
     user           User                     @relation(fields: [userId], references: [id])
-    profession     Profession?              @relation(fields: [professionId], references: [id])
+    profession     Profession?              @relation(fields: [professionId], references: [id], onDelete: SetNull)
 
     createdAt              DateTime                @default(now())
     updatedAt              DateTime                @updatedAt
@@ -45,8 +45,8 @@ model Profession {
 model TechnicianAvailability {
     technicianId Int
     day          Day
-    startTime    String
-    endTime      String
+    startHour    Int
+    endHour      Int
 
     technician Technician @relation(fields: [technicianId], references: [userId])
 

@@ -114,19 +114,4 @@ export class UsersService {
       data: { role, approvalStatus: ApprovalStatus.VALIDATED },
     });
   }
-
-  getTechnicians() {
-    return this.prismaService.user.findMany({
-      where: { role: Role.TECHNICIAN },
-      include: {
-        technicianData: {
-          include: {
-            availabilities: true,
-            profession: true,
-            TechnicianAssignements: true,
-          },
-        },
-      },
-    });
-  }
 }
