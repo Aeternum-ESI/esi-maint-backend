@@ -15,6 +15,7 @@ import { User } from './entities/user.entity';
 import { RoleDto } from './dtos/askPromotion.dto';
 import { ValidatePromotionDto } from './dtos/validatePromotionRequest.dto';
 import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '@prisma/client';
 
 @Controller('users')
 export class UsersController {

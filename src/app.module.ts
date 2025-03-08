@@ -8,6 +8,7 @@ import { RolesGuard } from './modules/auth/guards/roles.guard';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { PrismaModule } from 'nestjs-prisma';
 import { ProfessionsModule } from './modules/professions/professions.module';
+import { AssetsModule } from './modules/assets/assets.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ProfessionsModule } from './modules/professions/professions.module';
     }),
     CategoriesModule,
     ProfessionsModule,
+    AssetsModule,
   ],
   controllers: [],
   providers: [
