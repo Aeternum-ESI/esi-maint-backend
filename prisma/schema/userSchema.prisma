@@ -17,6 +17,8 @@ model User {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    createdSchedules Schedule[]
 }
 
 model Technician {

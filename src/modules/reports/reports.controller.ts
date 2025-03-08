@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -11,6 +12,7 @@ import { ReportsService } from './reports.service';
 import { JwtPayload } from '../auth/dtos/jwtPayload';
 import { User } from '../auth/decorators/user.decorator';
 import { CreateReportDto } from './dtos/createReport.dto';
+import { OperationType } from '@prisma/client';
 
 @Controller('reports')
 export class ReportsController {
@@ -26,7 +28,23 @@ export class ReportsController {
     @User() User: JwtPayload,
     @Body() createReportDto: CreateReportDto,
   ) {
-    // return this.reportsService.createReport();
+    return this.reportsService.createReport(
+      User.id,
+      createReportDto,
+      OperationType.CORRECTIVE,
+    );
+  }
+
+  @Post('schedule')
+  async createScheduledReport(
+    @User() User: JwtPayload,
+    @Body() createReportDto: CreateReportDto,
+  ) {
+    return this.reportsService.createReport(
+      User.id,
+      createReportDto,
+      OperationType.PREVENTIVE,
+    );
   }
 
   @Get(':id')

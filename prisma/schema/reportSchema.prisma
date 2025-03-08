@@ -18,12 +18,18 @@ model Report {
 }
 
 model Schedule {
-    id           Int      @id @default(autoincrement())
-    assetId      Int
-    categoryId   Int
-    description  String
-    lastMaintena DateTime
-    period       DateTime
+    id                  Int      @id @default(autoincrement())
+    assetId             Int
+    // Admin who created the schedule
+    schedulerId         Int
+    categoryId          Int
+    description         String
+    lastMaintenanceDate DateTime
+    period              DateTime
+
+    asset     Asset    @relation(fields: [assetId], references: [id])
+    category  Category @relation(fields: [categoryId], references: [id])
+    scheduler User     @relation(fields: [schedulerId], references: [id])
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
