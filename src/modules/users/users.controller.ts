@@ -6,22 +6,28 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
   Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { Request } from 'express';
 import { User } from './entities/user.entity';
-import { AskPromotionDto } from './dtos/askPromotion.dto';
+import { RoleDto } from './dtos/askPromotion.dto';
+import { ValidatePromotionDto } from './dtos/validatePromotionRequest.dto';
+import { Roles } from '../auth/decorators/roles.decorator';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Get()
+  getAllUsers() {
+    return this.usersService.getAllUsers();
+  }
+
+  // Reset necessary roles for this endpoint
+  @Roles()
   @Post('/askpromotion')
-  askPromotion(
-    @Body() askPromotionDto: AskPromotionDto,
-    @Req() req: { user: User },
-  ) {
+  askPromotion(@Body() askPromotionDto: RoleDto, @Req() req: { user: User }) {
     return this.usersService.askPromotion(req.user.id, askPromotionDto.role);
   }
 
@@ -30,8 +36,32 @@ export class UsersController {
     return this.usersService.getPromotionRequests();
   }
 
-  @Post('/:id/promote')
-  promoteUser(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.promoteUser(id);
+  @Get('/technicians')
+  getTechnicians() {
+    return this.usersService.getTechnicians();
+  }
+
+  @Get('/:id')
+  getUserById(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.getUserById(id);
+  }
+
+  @Post('/:id/validate')
+  promoteUser(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() validatePromotionDto: ValidatePromotionDto,
+  ) {
+    return this.usersService.validatePromotionRequest(
+      id,
+      validatePromotionDto.isValidated,
+    );
+  }
+
+  @Post('/:id/setrole')
+  setRoleToUser(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() setRoleDto: RoleDto,
+  ) {
+    return this.usersService.setRoleToUser(id, setRoleDto.role);
   }
 }

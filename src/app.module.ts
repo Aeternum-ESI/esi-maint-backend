@@ -7,6 +7,7 @@ import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { PrismaModule } from 'nestjs-prisma';
+import { ProfessionsModule } from './modules/professions/professions.module';
 
 @Module({
   imports: [
@@ -17,6 +18,8 @@ import { PrismaModule } from 'nestjs-prisma';
           omit: {
             user: {
               password: true,
+              updatedAt: true,
+              createdAt: true,
             },
           },
         },
@@ -28,6 +31,7 @@ import { PrismaModule } from 'nestjs-prisma';
       isGlobal: true,
     }),
     CategoriesModule,
+    ProfessionsModule,
   ],
   controllers: [],
   providers: [

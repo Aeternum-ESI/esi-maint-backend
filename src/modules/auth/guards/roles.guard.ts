@@ -6,7 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Role } from '@prisma/client';
+import { ApprovalStatus, Role } from '@prisma/client';
 import { ROLES_KEY } from 'src/modules/auth/decorators/roles.decorator';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 import { PrismaService } from 'nestjs-prisma';
@@ -60,6 +60,9 @@ export class RolesGuard implements CanActivate {
     }
 
     // Check if user has the required role (admin, technician, or user)
-    return requiredRoles.some((role) => userData.role === role);
+    return (
+      requiredRoles.some((role) => userData.role === role) &&
+      userData.approvalStatus === ApprovalStatus.VALIDATED
+    );
   }
 }

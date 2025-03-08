@@ -1,13 +1,13 @@
 model User {
-    id             Int         @id @default(autoincrement())
-    technician     Technician?
+    id             Int            @id @default(autoincrement())
+    technicianData Technician?
     name           String
-    email          String      @unique
+    email          String         @unique
     password       String
     avatarUrl      String?
-    role           Role        @default(STAFF)
+    role           Role           @default(STAFF)
     //If the user is approved by the admin
-    approvalStatus Boolean     @default(false)
+    approvalStatus ApprovalStatus @default(UNSET)
 
     notifications Notification[]
     reports       Report[]
@@ -20,26 +20,21 @@ model User {
 }
 
 model Technician {
-    userId       Int     @id @unique
-    name         String
-    email        String  @unique
-    password     String
-    avatarUrl    String?
-    professionId Int
-    scheduleId   Int
+    userId       Int  @id @unique
+    professionId Int?
 
     availabilities TechnicianAvailability[]
     user           User                     @relation(fields: [userId], references: [id])
-    profession     Profession               @relation(fields: [professionId], references: [id])
+    profession     Profession?              @relation(fields: [professionId], references: [id])
 
-    createdAt             DateTime                @default(now())
-    updatedAt             DateTime                @updatedAt
-    TechnicianAssignement TechnicianAssignement[]
+    createdAt              DateTime                @default(now())
+    updatedAt              DateTime                @updatedAt
+    TechnicianAssignements TechnicianAssignement[]
 }
 
 model Profession {
     id   Int    @id @default(autoincrement())
-    name String
+    name String @unique
 
     technicians Technician[]
 
@@ -88,4 +83,10 @@ enum Day {
     THURSDAY
     FRIDAY
     SATURDAY
+}
+
+enum ApprovalStatus {
+    UNSET
+    PENDING
+    VALIDATED
 }
