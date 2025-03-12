@@ -11,6 +11,7 @@ import { ProfessionsModule } from './modules/professions/professions.module';
 import { AssetsModule } from './modules/assets/assets.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { TasksModule } from './modules/tasks/tasks.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { TasksModule } from './modules/tasks/tasks.module';
     AssetsModule,
     ReportsModule,
     TasksModule,
+    NotificationsModule,
   ],
   controllers: [],
   providers: [

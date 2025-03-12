@@ -23,13 +23,6 @@ export class TasksService {
 
       const days = difference / (1000 * 3600 * 24);
 
-      console.log({
-        days,
-        difference,
-        currentDate,
-        lastMaintenanceDate,
-      });
-
       if (days >= scheduledTask.frequency) {
         const { assetId, categoryId, description, schedulerId, id } =
           scheduledTask;
