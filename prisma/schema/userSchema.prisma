@@ -50,7 +50,7 @@ model TechnicianAvailability {
     startHour    Int
     endHour      Int
 
-    technician Technician @relation(fields: [technicianId], references: [userId])
+    technician Technician @relation(fields: [technicianId], references: [userId], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -65,7 +65,7 @@ model Notification {
     message String
     read    Boolean @default(false)
 
-    user User @relation(fields: [userId], references: [id])
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

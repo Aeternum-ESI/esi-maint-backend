@@ -1,15 +1,19 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateReportDto {
-  @IsString()
-  description: string;
   @IsNumber()
   @IsOptional()
-  assetId?: number;
+  assetId?: number | null;
+
+  @IsString()
+  @IsOptional()
+  description?: string | null;
+
   @IsNumber()
   @IsOptional()
-  categoryId?: number;
+  categoryId?: number | null;
+
   @IsOptional()
   @IsString()
-  imageUrl?: string;
+  imageUrl?: string | null;
 }

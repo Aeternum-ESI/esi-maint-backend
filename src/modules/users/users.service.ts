@@ -97,15 +97,18 @@ export class UsersService {
     // If the role is technician, create a technician entity
     if (role === Role.TECHNICIAN) {
       await this.prismaService.technician.create({
-        data: { user: { connect: { id } } },
+        data: {
+          userId: id,
+        },
       });
     }
 
     // If the user is a technician, delete the technician entity
     if (user.role === Role.TECHNICIAN) {
-      console.log('Deleting technician');
       await this.prismaService.technician.delete({
-        where: { userId: id },
+        where: {
+          userId: id,
+        },
       });
     }
 

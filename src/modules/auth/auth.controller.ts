@@ -30,9 +30,9 @@ export class AuthController {
   @Public()
   @UseGuards(GoogleOauthGuard)
   @Get('google/callback')
-  async googleAuthCallback(@Req() req, @Res() res: Response) {
+  async googleAuthCallback(@User() user: GoogleUserDto, @Res() res: Response) {
     try {
-      const token = await this.authService.signIn(req.user as GoogleUserDto);
+      const token = await this.authService.signIn(user);
 
       res.cookie('access_token', token, {
         maxAge: 604800000, // 1 semaine

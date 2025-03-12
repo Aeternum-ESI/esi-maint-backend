@@ -3,7 +3,7 @@ model Report {
     reporterId  Int
     assetId     Int?
     categoryId  Int?
-    description String
+    description String?
     imageUrl    String?
     type        OperationType
     status      ReportStatus
@@ -18,18 +18,19 @@ model Report {
 }
 
 model Schedule {
-    id                  Int      @id @default(autoincrement())
-    assetId             Int
+    id                  Int     @id @default(autoincrement())
+    assetId             Int?
     // Admin who created the schedule
     schedulerId         Int
-    categoryId          Int
-    description         String
-    lastMaintenanceDate DateTime
-    period              DateTime
+    categoryId          Int?
+    description         String?
+    lastMaintenanceDate String
+    // In days
+    frequency           Int
 
-    asset     Asset    @relation(fields: [assetId], references: [id])
-    category  Category @relation(fields: [categoryId], references: [id])
-    scheduler User     @relation(fields: [schedulerId], references: [id])
+    asset     Asset?    @relation(fields: [assetId], references: [id])
+    category  Category? @relation(fields: [categoryId], references: [id])
+    scheduler User      @relation(fields: [schedulerId], references: [id])
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
