@@ -46,9 +46,11 @@ export class AssetsService {
         location: true,
       },
     });
+
     if (!asset) {
       throw new NotFoundException(`Asset with id ${id} does not exist`);
     }
+
     return asset;
   }
 

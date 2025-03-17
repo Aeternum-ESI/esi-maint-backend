@@ -1,19 +1,62 @@
 import { OperationType, ReportStatus } from '@prisma/client';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 import { CreateReportDto } from './dtos/createReport.dto';
 import { CreateScheduleDto } from './dtos/createSchedule.dto';
 import { UpdateScheduleDto } from './dtos/updateSchedule.dto';
+import { AssetsService } from '../assets/assets.service';
+import { CategoriesService } from '../categories/categories.service';
 
 @Injectable()
 export class ReportsService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly assetsService: AssetsService,
+    private readonly categoryService: CategoriesService,
+  ) {}
 
-  createReport(
+  async createReport(
     reporterId: number,
     createReportDto: CreateReportDto,
     operationType: OperationType,
   ) {
+    // Verify Existence of category and asset
+    if (createReportDto.assetId) {
+      await this.assetsService.findOne(createReportDto.assetId);
+    }
+
+    if (createReportDto.categoryId) {
+      await this.categoryService.getCategoryById(createReportDto.categoryId);
+    }
+
+    // Verify if there is already a pending or assigned corrective report for this asset
+    if (operationType === 'CORRECTIVE') {
+      const correctiveReports = await this.prismaService.report.findFirst({
+        where: {
+          assetId: createReportDto.assetId,
+          type: 'CORRECTIVE',
+          OR: [
+            {
+              status: 'PENDING',
+            },
+            {
+              status: 'ASSIGNED',
+            },
+          ],
+        },
+      });
+
+      if (correctiveReports) {
+        throw new BadRequestException(
+          'There is already a pending or assigned corrective report for this asset.',
+        );
+      }
+    }
+
     return this.prismaService.report.create({
       data: {
         ...createReportDto,
