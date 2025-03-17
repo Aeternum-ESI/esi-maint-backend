@@ -2,42 +2,40 @@ model InterventionRequest {
     id        Int                       @id @default(autoincrement())
     reportId  Int
     title     String
-    deadline  DateTime
+    deadline  String
     priority  Priority
     status    InterventionRequestStatus
     createdBy Int
-    type      OperationType
 
-    TechnicianAssignement TechnicianAssignement[]
-    Interventions         Interventions[]
+    assignedTo    TechnicianAssignement[]
+    Interventions Interventions[]
 
-    report  Report @relation(fields: [reportId], references: [id])
-    creator User   @relation(fields: [createdBy], references: [id])
+    report  Report @relation(fields: [reportId], references: [id], onDelete: Cascade)
+    creator User   @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
 }
 
 model TechnicianAssignement {
-    id                    Int @id @default(autoincrement())
+    id                    Int     @id @default(autoincrement())
     technicianId          Int
     interventionRequestId Int
-    locationId            Int
+    locationId            Int?
+    completed             Boolean @default(false)
 
     technician          Technician          @relation(fields: [technicianId], references: [userId])
-    interventionRequest InterventionRequest @relation(fields: [interventionRequestId], references: [id])
-    location            Asset               @relation(fields: [locationId], references: [id])
+    interventionRequest InterventionRequest @relation(fields: [interventionRequestId], references: [id], onDelete: Cascade)
+    location            Asset?              @relation(fields: [locationId], references: [id])
 
     createdAt DateTime @default(now())
 }
 
 model Interventions {
-    id                    Int    @id @default(autoincrement())
+    id                    Int                 @id @default(autoincrement())
     interventionRequestId Int
     description           String
-
-    interventionRequest InterventionRequest @relation(fields: [interventionRequestId], references: [id])
-
-    createdAt DateTime @default(now())
+    interventionRequest   InterventionRequest @relation(fields: [interventionRequestId], references: [id], onDelete: Cascade)
+    createdAt             DateTime            @default(now())
 }
 
 enum Priority {

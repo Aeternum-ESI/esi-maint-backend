@@ -6,6 +6,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Put,
   Req,
@@ -22,30 +23,17 @@ import { UpdateScheduleDto } from './dtos/updateSchedule.dto';
 export class ReportsController {
   constructor(private readonly reportsService: ReportsService) {}
 
-  @Get()
-  async findAll() {
-    return this.reportsService.findAllReports();
+  @Put('schedules/:id')
+  updateSchedule(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateScheduleDto: UpdateScheduleDto,
+  ) {
+    return this.reportsService.updateSchedule(id, updateScheduleDto);
   }
 
-  @Post()
-  async createReport(
-    @User() User: JwtPayload,
-    @Body() createReportDto: CreateReportDto,
-  ) {
-    if (!createReportDto.assetId) {
-      throw new BadRequestException('Asset ID is required');
-    }
-
-    if (createReportDto.categoryId) {
-      throw new BadRequestException(
-        'Category ID does not have to be provided in corrective reports',
-      );
-    }
-    return this.reportsService.createReport(
-      User.id,
-      createReportDto,
-      OperationType.CORRECTIVE,
-    );
+  @Delete('schedules/:id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.reportsService.deleteSchedule(id);
   }
 
   @Get('schedules')
@@ -73,21 +61,39 @@ export class ReportsController {
     return this.reportsService.schedule(User.id, createScheduleDto);
   }
 
-  @Put('schedules/:id')
-  updateSchedule(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateScheduleDto: UpdateScheduleDto,
-  ) {
-    return this.reportsService.updateSchedule(id, updateScheduleDto);
-  }
-
-  @Delete('schedules/:id')
-  delete(@Param('id', ParseIntPipe) id: number) {
-    return this.reportsService.deleteSchedule(id);
+  @Patch(':id/cancel')
+  async cancelReport(@Param('id', ParseIntPipe) id: number) {
+    return this.reportsService.cancelReport(id);
   }
 
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.reportsService.findReportById(id);
+  }
+
+  @Get()
+  async findAll() {
+    return this.reportsService.findAllReports();
+  }
+
+  @Post()
+  async createReport(
+    @User() User: JwtPayload,
+    @Body() createReportDto: CreateReportDto,
+  ) {
+    if (!createReportDto.assetId) {
+      throw new BadRequestException('Asset ID is required');
+    }
+
+    if (createReportDto.categoryId) {
+      throw new BadRequestException(
+        'Category ID does not have to be provided in corrective reports',
+      );
+    }
+    return this.reportsService.createReport(
+      User.id,
+      createReportDto,
+      OperationType.CORRECTIVE,
+    );
   }
 }

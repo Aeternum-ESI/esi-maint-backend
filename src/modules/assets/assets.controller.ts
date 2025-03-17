@@ -26,6 +26,11 @@ export class AssetsController {
     return this.assetsService.findAll();
   }
 
+  @Get('/locations')
+  findAllLocations() {
+    return this.assetsService.findAllLocations();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.assetsService.findOne(+id);

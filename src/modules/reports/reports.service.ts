@@ -1,5 +1,5 @@
 import { OperationType, ReportStatus } from '@prisma/client';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 import { CreateReportDto } from './dtos/createReport.dto';
 import { CreateScheduleDto } from './dtos/createSchedule.dto';
@@ -24,6 +24,17 @@ export class ReportsService {
     });
   }
 
+  cancelReport(id: number) {
+    return this.prismaService.report.update({
+      where: {
+        id,
+      },
+      data: {
+        status: 'CANCELED',
+      },
+    });
+  }
+
   findAllScheduled() {
     return this.prismaService.schedule.findMany();
   }
@@ -37,12 +48,17 @@ export class ReportsService {
     });
   }
 
-  findReportById(id: number) {
-    return this.prismaService.report.findUnique({
+  async findReportById(id: number) {
+    const report = await this.prismaService.report.findUnique({
       where: {
         id,
       },
     });
+
+    if (!report) {
+      throw new NotFoundException('Report not found.');
+    }
+    return report;
   }
 
   findAllReports() {

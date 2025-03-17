@@ -1,3 +1,4 @@
+import { InterventionRequestsService } from 'src/modules/intervention-requests/intervention-requests.service';
 import { UpdateTechnicianDataDto } from './dtos/updateTechnicianData.dto';
 import { TechniciansService } from './technicians.service';
 import {

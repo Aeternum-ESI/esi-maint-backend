@@ -12,6 +12,7 @@ import { AssetsModule } from './modules/assets/assets.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
+import { InterventionRequestsModule } from './modules/intervention-requests/intervention-requests.module';
 
 @Module({
   imports: [
@@ -40,8 +41,8 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
     ReportsModule,
     TasksModule,
     NotificationsModule,
+    InterventionRequestsModule,
   ],
-  controllers: [],
   providers: [
     {
       provide: APP_GUARD,

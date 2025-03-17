@@ -1,12 +1,12 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
-  BadRequestException,
 } from '@nestjs/common';
+import { AssetStatus, AssetType } from '@prisma/client';
+import { PrismaService } from 'nestjs-prisma';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
-import { PrismaService } from 'nestjs-prisma';
-import { AssetStatus, AssetType } from '@prisma/client';
 
 @Injectable()
 export class AssetsService {
@@ -161,5 +161,38 @@ export class AssetsService {
         );
       }
     }
+  }
+
+  async getLocationById(locationId: number) {
+    const location = await this.prismaService.asset.findUnique({
+      where: {
+        id: locationId,
+        // where type is ROOM or BUILDING
+        OR: [
+          {
+            type: 'ROOM',
+          },
+          {
+            type: 'BUILDING',
+          },
+        ],
+      },
+    });
+
+    if (!location) {
+      throw new BadRequestException(
+        `Location with id ${locationId} does not exist.`,
+      );
+    }
+  }
+
+  async findAllLocations() {
+    return this.prismaService.asset.findMany({
+      where: {
+        type: {
+          in: [AssetType.BUILDING, AssetType.ROOM],
+        },
+      },
+    });
   }
 }
