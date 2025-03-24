@@ -9,8 +9,9 @@ export class TasksService {
     private readonly prismaService: PrismaService,
     private readonly reportsService: ReportsService,
   ) {}
+
   @Cron(CronExpression.EVERY_5_SECONDS)
-  async checkSchedule() {
+  async checkScheduleAndCreatePreventiveReport() {
     const scheduledTasks = await this.prismaService.schedule.findMany();
 
     scheduledTasks.forEach(async (scheduledTask) => {
@@ -45,6 +46,27 @@ export class TasksService {
             lastMaintenanceDate: new Date().toISOString().split('T')[0],
           },
         });
+      }
+    });
+  }
+
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  async checkTasksAndCheckDeadline() {
+    const interventionRequests =
+      await this.prismaService.interventionRequest.findMany({
+        where: {
+          status: 'IN_PROGRESS',
+        },
+        include: {
+          assignedTo: true,
+        },
+      });
+
+    interventionRequests.forEach(async (interventionRequest) => {
+      const currentDate = new Date();
+      const deadline = new Date(interventionRequest.deadline);
+
+      if (currentDate.getTime() > deadline.getTime()) {
       }
     });
   }

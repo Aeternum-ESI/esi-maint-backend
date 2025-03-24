@@ -34,7 +34,6 @@ export class CategoriesController {
     return this.categoriesService.getCategoryById(id);
   }
 
-  @Roles(Role.ADMIN)
   @Put('/:id')
   updateCategory(
     @Param('id', ParseIntPipe) id: number,

@@ -26,7 +26,7 @@ model Technician {
     professionId Int?
 
     availabilities TechnicianAvailability[]
-    user           User                     @relation(fields: [userId], references: [id])
+    user           User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
     profession     Profession?              @relation(fields: [professionId], references: [id], onDelete: SetNull)
 
     createdAt              DateTime                @default(now())

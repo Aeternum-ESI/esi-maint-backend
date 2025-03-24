@@ -23,7 +23,7 @@ model TechnicianAssignement {
     locationId            Int?
     completed             Boolean @default(false)
 
-    technician          Technician          @relation(fields: [technicianId], references: [userId])
+    technician          Technician          @relation(fields: [technicianId], references: [userId], onDelete: Cascade)
     interventionRequest InterventionRequest @relation(fields: [interventionRequestId], references: [id], onDelete: Cascade)
     location            Asset?              @relation(fields: [locationId], references: [id])
 

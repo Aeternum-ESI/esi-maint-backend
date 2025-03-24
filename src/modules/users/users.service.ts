@@ -94,27 +94,34 @@ export class UsersService {
       );
     }
 
-    // If the role is technician, create a technician entity
-    if (role === Role.TECHNICIAN) {
-      await this.prismaService.technician.create({
-        data: {
-          userId: id,
-        },
-      });
-    }
+    await this.prismaService.$transaction(async (prisma) => {
+      // If the role is technician, create a technician entity
+      if (role === Role.TECHNICIAN) {
+        await prisma.technician.create({
+          data: {
+            userId: id,
+          },
+        });
+      }
 
-    // If the user is a technician, delete the technician entity
-    if (user.role === Role.TECHNICIAN) {
-      await this.prismaService.technician.delete({
-        where: {
-          userId: id,
-        },
+      // If the user is a technician, delete the technician entity
+      if (user.role === Role.TECHNICIAN) {
+        await prisma.technician.delete({
+          where: {
+            userId: id,
+          },
+        });
+      }
+      return prisma.user.update({
+        where: { id },
+        data: { role, approvalStatus: ApprovalStatus.VALIDATED },
       });
-    }
-
-    return this.prismaService.user.update({
-      where: { id },
-      data: { role, approvalStatus: ApprovalStatus.VALIDATED },
     });
+
+    return user;
+  }
+
+  delUsers() {
+    return this.prismaService.user.deleteMany();
   }
 }

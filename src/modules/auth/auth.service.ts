@@ -33,6 +33,7 @@ export class AuthService {
       return await this.generateJwt({
         id: userExists.id,
         email: userExists.email,
+        name: userExists.name,
       });
     } catch (e) {
       throw new InternalServerErrorException('Error while Signing In', e);

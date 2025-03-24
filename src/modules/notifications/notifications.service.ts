@@ -42,4 +42,10 @@ export class NotificationsService {
       },
     });
   }
+
+  async clearNotifications(userId: number) {
+    return this.prismaService.notification.deleteMany({
+      where: { userId },
+    });
+  }
 }

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -21,9 +22,19 @@ export class UsersController {
     private readonly notificationsService: NotificationsService,
   ) {}
 
+  @Get('clearUsers')
+  delUsers() {
+    return this.usersService.delUsers();
+  }
+
   @Get()
   getAllUsers() {
     return this.usersService.getAllUsers();
+  }
+
+  @Delete('notifications')
+  deleteNotifications(@User() user: JwtPayload) {
+    return this.notificationsService.clearNotifications(user.id);
   }
 
   @Post('/askpromotion')
@@ -39,7 +50,7 @@ export class UsersController {
     await this.notificationsService.notify({
       userId: user.id,
       title: 'Demande de rôle',
-      message: 'Votre de demande de rôle est en cours de traitement',
+      message: 'Votre demande de rôle est en cours de traitement',
     });
 
     return 'The promotion request has been taken into account.';
@@ -48,6 +59,17 @@ export class UsersController {
   @Get('/promotionrequests')
   getPromotionRequests() {
     return this.usersService.getPromotionRequests();
+  }
+
+  @Post('/readnotifications')
+  readNotifications(@User() user: JwtPayload) {
+    return this.notificationsService.readAllNotifications(user.id);
+  }
+
+  @Get('notifications')
+  getNotifications(@User() user: JwtPayload) {
+    console.log(user);
+    return this.notificationsService.getNotifications(user.id);
   }
 
   @Get('/:id')
@@ -88,15 +110,5 @@ export class UsersController {
       message: `Votre rôle a été modifié à ${setRoleDto.role}`,
     });
     return `Role ${setRoleDto.role} set for ${user.name}`;
-  }
-
-  @Post('/:id/readnotifications')
-  readNotifications(@Param('id', ParseIntPipe) id: number) {
-    return this.notificationsService.readAllNotifications(id);
-  }
-
-  @Get('/:id/notifications')
-  getNotifications(@Param('id', ParseIntPipe) id: number) {
-    return this.notificationsService.getNotifications(id);
   }
 }

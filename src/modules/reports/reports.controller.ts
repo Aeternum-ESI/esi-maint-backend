@@ -52,6 +52,7 @@ export class ReportsController {
         'Either assetId or categoryId must be provided',
       );
     }
+
     if (createScheduleDto.assetId && createScheduleDto.categoryId) {
       throw new BadRequestException(
         'Only one of assetId or categoryId must be provided',

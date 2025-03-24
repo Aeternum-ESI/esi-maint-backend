@@ -33,30 +33,6 @@ export class ReportsService {
       await this.categoryService.getCategoryById(createReportDto.categoryId);
     }
 
-    // Verify if there is already a pending or assigned corrective report for this asset
-    if (operationType === 'CORRECTIVE') {
-      const correctiveReports = await this.prismaService.report.findFirst({
-        where: {
-          assetId: createReportDto.assetId,
-          type: 'CORRECTIVE',
-          OR: [
-            {
-              status: 'PENDING',
-            },
-            {
-              status: 'ASSIGNED',
-            },
-          ],
-        },
-      });
-
-      if (correctiveReports) {
-        throw new BadRequestException(
-          'There is already a pending or assigned corrective report for this asset.',
-        );
-      }
-    }
-
     return this.prismaService.report.create({
       data: {
         ...createReportDto,

@@ -10,12 +10,13 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
-import { Response } from 'express';
-import { GoogleUserDto } from './dtos/register.dto';
 import { Public } from './decorators/public.decorator';
 
 import { User } from './decorators/user.decorator';
 import { JwtPayload } from './dtos/jwtPayload';
+import { GoogleUserDto } from './dtos/register.dto';
+import { Response } from 'express';
+import { FRONTEND_URL } from 'src/common/utils/const';
 
 @Controller('auth')
 export class AuthController {
@@ -34,14 +35,7 @@ export class AuthController {
     try {
       const token = await this.authService.signIn(user);
 
-      res.cookie('access_token', token, {
-        maxAge: 604800000, // 1 semaine
-        sameSite: 'lax',
-        secure: false,
-      });
-
-      // redirect  to the frontend
-      return res.redirect('http://localhost:3000/auth/me');
+      return res.redirect(`${FRONTEND_URL}/oauth?token=${token}`);
     } catch (error) {
       this.logger.error('Error during Google authentication', error);
       throw new HttpException(
@@ -53,6 +47,6 @@ export class AuthController {
 
   @Get('me')
   async me(@User() User: JwtPayload) {
-    return User;
+    return this.authService.findUserByEmail(User.email);
   }
 }
