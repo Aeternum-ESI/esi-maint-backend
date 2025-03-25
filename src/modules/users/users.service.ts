@@ -5,6 +5,8 @@ import {
 } from '@nestjs/common';
 import { ApprovalStatus, Role } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
+import { async } from 'rxjs';
+import { number } from 'zod';
 
 @Injectable()
 export class UsersService {
@@ -78,8 +80,23 @@ export class UsersService {
       return this.setRoleToUser(id, Role.STAFF);
     }
 
-    // If validated, promote user to the requested role
-    return this.setRoleToUser(id, user.role);
+    await this.prismaService.$transaction(async (prisma) => {
+      // If validated, promote user to the requested role
+      await prisma.user.update({
+        where: { id },
+        data: {
+          approvalStatus: ApprovalStatus.VALIDATED,
+        },
+      });
+      if (user.role === Role.TECHNICIAN) {
+        await prisma.technician.create({
+          data: {
+            userId: id,
+          },
+        });
+      }
+    });
+    return user;
   }
 
   async setRoleToUser(id: number, role: Role) {
