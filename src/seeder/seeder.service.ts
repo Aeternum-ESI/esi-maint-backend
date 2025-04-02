@@ -238,75 +238,75 @@ export class SeederService {
   async seedAssets() {
     this.logger.log('Seeding assets...');
 
-    // Create buildings
-    const mainBuilding = await this.createAsset({
+    // Create sites
+    const mainSite = await this.createAsset({
       name: 'Main Building',
       inventoryCode: 'BLDG-001',
-      type: AssetType.BUILDING,
+      type: AssetType.SITE,
     });
 
-    const scienceBuilding = await this.createAsset({
+    const scienceSite = await this.createAsset({
       name: 'Science Building',
       inventoryCode: 'BLDG-002',
-      type: AssetType.BUILDING,
+      type: AssetType.SITE,
     });
 
-    const adminBuilding = await this.createAsset({
+    const adminSite = await this.createAsset({
       name: 'Administration Building',
       inventoryCode: 'BLDG-003',
-      type: AssetType.BUILDING,
+      type: AssetType.SITE,
     });
 
-    // Create rooms in the main building
+    // Create zones in the main site
     const classroom101 = await this.createAsset({
       name: 'Classroom 101',
       inventoryCode: 'ROOM-101',
-      locationId: mainBuilding.id,
-      type: AssetType.ROOM,
+      locationId: mainSite.id,
+      type: AssetType.ZONE,
     });
 
     const classroom102 = await this.createAsset({
       name: 'Classroom 102',
       inventoryCode: 'ROOM-102',
-      locationId: mainBuilding.id,
-      type: AssetType.ROOM,
+      locationId: mainSite.id,
+      type: AssetType.ZONE,
     });
 
     const computerLab = await this.createAsset({
       name: 'Computer Lab',
       inventoryCode: 'ROOM-103',
-      locationId: mainBuilding.id,
-      type: AssetType.ROOM,
+      locationId: mainSite.id,
+      type: AssetType.ZONE,
     });
 
-    // Create rooms in science building
+    // Create zones in science site
     const chemistryLab = await this.createAsset({
       name: 'Chemistry Laboratory',
       inventoryCode: 'ROOM-201',
-      locationId: scienceBuilding.id,
-      type: AssetType.ROOM,
+      locationId: scienceSite.id,
+      type: AssetType.ZONE,
     });
 
     const physicsLab = await this.createAsset({
       name: 'Physics Laboratory',
       inventoryCode: 'ROOM-202',
-      locationId: scienceBuilding.id,
-      type: AssetType.ROOM,
+      locationId: scienceSite.id,
+      type: AssetType.ZONE,
     });
 
-    // Create rooms in admin building
+    // Create zones in admin site
     const principalOffice = await this.createAsset({
       name: 'Principal Office',
       inventoryCode: 'ROOM-301',
-      locationId: adminBuilding.id,
-      type: AssetType.ROOM,
+      locationId: adminSite.id,
+      type: AssetType.ZONE,
     });
 
     const staffRoom = await this.createAsset({
       name: 'Staff Room',
       inventoryCode: 'ROOM-302',
-      locationId: adminBuilding.id,
-      type: AssetType.ROOM,
+      locationId: adminSite.id,
+      type: AssetType.ZONE,
     });
 
     // Get category IDs
@@ -324,7 +324,7 @@ export class SeederService {
     const hvacCatId = getCategory('HVAC');
     const acCatId = getCategory('Air Conditioners');
 
-    // Add equipment to rooms
+    // Add equipment to zones
     // Classroom 101 equipment
     await this.createAsset({
       name: 'Projector CL101',
@@ -380,11 +380,11 @@ export class SeederService {
       type: AssetType.EQUIPMENT,
     });
 
-    // HVAC for buildings
+    // HVAC for sites
     await this.createAsset({
       name: 'Main Building AC',
       inventoryCode: 'AC-MAIN-1',
-      locationId: mainBuilding.id,
+      locationId: mainSite.id,
       categoryId: acCatId,
       type: AssetType.EQUIPMENT,
     });
@@ -392,7 +392,7 @@ export class SeederService {
     await this.createAsset({
       name: 'Science Building AC',
       inventoryCode: 'AC-SCI-1',
-      locationId: scienceBuilding.id,
+      locationId: scienceSite.id,
       categoryId: acCatId,
       type: AssetType.EQUIPMENT,
     });

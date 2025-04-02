@@ -114,21 +114,21 @@ export class AssetsService {
     switch (assetType) {
       case AssetType.EQUIPMENT:
         if (
-          parentLocation.type !== AssetType.BUILDING &&
-          parentLocation.type !== AssetType.ROOM
+          parentLocation.type !== AssetType.SITE &&
+          parentLocation.type !== AssetType.ZONE
         ) {
           throw new BadRequestException(
-            `Equipment must be located in either a building or a room`,
+            `Equipment must be located in either a site or a zone`,
           );
         }
         break;
-      case AssetType.ROOM:
-        if (parentLocation.type !== AssetType.BUILDING) {
-          throw new BadRequestException(`Rooms must be located in a building`);
+      case AssetType.ZONE:
+        if (parentLocation.type !== AssetType.SITE) {
+          throw new BadRequestException(`Zones must be located in a site`);
         }
         break;
-      case AssetType.BUILDING:
-        throw new BadRequestException(`Buildings cannot have a location`);
+      case AssetType.SITE:
+        throw new BadRequestException(`Sites cannot have a location`);
       default:
         throw new BadRequestException(`Invalid asset type: ${assetType}`);
     }
@@ -147,19 +147,19 @@ export class AssetsService {
 
     for (const child of childAssets) {
       // Check if the new type is valid for existing children
-      if (child.type === AssetType.ROOM && newType !== AssetType.BUILDING) {
+      if (child.type === AssetType.ZONE && newType !== AssetType.SITE) {
         throw new BadRequestException(
-          `Cannot change type to ${newType} because it has rooms as children, which must be in a building`,
+          `Cannot change type to ${newType} because it has zones as children, which must be in a site`,
         );
       }
 
       if (
         child.type === AssetType.EQUIPMENT &&
-        newType !== AssetType.BUILDING &&
-        newType !== AssetType.ROOM
+        newType !== AssetType.SITE &&
+        newType !== AssetType.ZONE
       ) {
         throw new BadRequestException(
-          `Cannot change type to ${newType} because it has equipment as children, which must be in a building or room`,
+          `Cannot change type to ${newType} because it has equipment as children, which must be in a site or zone`,
         );
       }
     }
@@ -169,13 +169,13 @@ export class AssetsService {
     const location = await this.prismaService.asset.findUnique({
       where: {
         id: locationId,
-        // where type is ROOM or BUILDING
+        // where type is ZONE or SITE
         OR: [
           {
-            type: 'ROOM',
+            type: 'ZONE',
           },
           {
-            type: 'BUILDING',
+            type: 'SITE',
           },
         ],
       },
@@ -192,7 +192,7 @@ export class AssetsService {
     return this.prismaService.asset.findMany({
       where: {
         type: {
-          in: [AssetType.BUILDING, AssetType.ROOM],
+          in: [AssetType.SITE, AssetType.ZONE],
         },
       },
     });

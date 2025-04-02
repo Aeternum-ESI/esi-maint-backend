@@ -61,7 +61,7 @@ enum AssetStatus {
 }
 
 enum AssetType {
-    BUILDING
+    SITE
     EQUIPMENT
-    ROOM
+    ZONE
 }
