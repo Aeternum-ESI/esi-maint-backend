@@ -5,12 +5,21 @@ interface Notification {
   userId: number;
   title: string;
   message: string;
+  include?: {
+    email?: boolean;
+  };
 }
+
 @Injectable()
 export class NotificationsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async notify({ userId, title, message }: Notification) {
+  async notify({
+    userId,
+    title,
+    message,
+    include = { email: false },
+  }: Notification) {
     await this.prismaService.notification.create({
       data: {
         message,
@@ -18,6 +27,9 @@ export class NotificationsService {
         title,
       },
     });
+
+    if (include.email) {
+    }
   }
 
   async readAllNotifications(userId: number) {
