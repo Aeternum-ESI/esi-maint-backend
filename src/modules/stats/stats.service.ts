@@ -16,7 +16,7 @@ import {
   Priority,
   ReportStatus,
   OperationType,
-} from '@prisma/client';
+} from 'prisma/generated/client';
 import { sub, format, parseISO, differenceInHours } from 'date-fns';
 import { PrismaService } from '../prisma/prisma.service';
 
