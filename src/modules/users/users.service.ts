@@ -3,11 +3,8 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ApprovalStatus, Role } from '@prisma/client';
-import { PrismaService } from 'nestjs-prisma';
-import { async } from 'rxjs';
-import { number } from 'zod';
-
+import { PrismaService } from '../prisma/prisma.service';
+import { ApprovalStatus, Role } from 'prisma/generated/client';
 @Injectable()
 export class UsersService {
   constructor(private readonly prismaService: PrismaService) {}

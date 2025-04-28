@@ -3,9 +3,9 @@ model InterventionRequest {
     reportId  Int
     title     String
     deadline  String
-    priority  Priority
     status    InterventionRequestStatus
     createdBy Int
+    notified  Boolean                   @default(false)
 
     assignedTo    TechnicianAssignement[]
     Interventions Interventions[]
@@ -17,24 +17,26 @@ model InterventionRequest {
 }
 
 model TechnicianAssignement {
-    id                    Int     @id @default(autoincrement())
+    id                    Int                 @id @default(autoincrement())
     technicianId          Int
     interventionRequestId Int
     locationId            Int?
-    completed             Boolean @default(false)
-
-    technician          Technician          @relation(fields: [technicianId], references: [userId], onDelete: Cascade)
-    interventionRequest InterventionRequest @relation(fields: [interventionRequestId], references: [id], onDelete: Cascade)
-    location            Asset?              @relation(fields: [locationId], references: [id])
+    completed             Boolean             @default(false)
+    details               String?
+    technician            Technician          @relation(fields: [technicianId], references: [userId], onDelete: Cascade)
+    interventionRequest   InterventionRequest @relation(fields: [interventionRequestId], references: [id], onDelete: Cascade)
+    location              Asset?              @relation(fields: [locationId], references: [id])
 
     createdAt DateTime @default(now())
 }
 
 model Interventions {
     id                    Int                 @id @default(autoincrement())
+    technicianId          Int
     interventionRequestId Int
     description           String
     interventionRequest   InterventionRequest @relation(fields: [interventionRequestId], references: [id], onDelete: Cascade)
+    technician            Technician          @relation(fields: [technicianId], references: [userId], onDelete: Cascade)
     createdAt             DateTime            @default(now())
 }
 
@@ -47,4 +49,5 @@ enum Priority {
 enum InterventionRequestStatus {
     IN_PROGRESS
     COMPLETED
+    OVERDUE
 }

@@ -15,7 +15,7 @@ import { ReportsService } from './reports.service';
 import { JwtPayload } from '../auth/dtos/jwtPayload';
 import { User } from '../auth/decorators/user.decorator';
 import { CreateReportDto } from './dtos/createReport.dto';
-import { OperationType } from '@prisma/client';
+import { OperationType } from 'prisma/generated/client';
 import { CreateScheduleDto } from './dtos/createSchedule.dto';
 import { UpdateScheduleDto } from './dtos/updateSchedule.dto';
 

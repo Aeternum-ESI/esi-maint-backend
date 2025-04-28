@@ -9,6 +9,8 @@ import {
   ParseIntPipe,
   Patch,
 } from '@nestjs/common';
+import { User } from 'src/modules/auth/decorators/user.decorator';
+import { JwtPayload } from 'src/modules/auth/dtos/jwtPayload';
 
 @Controller('technicians')
 export class TechniciansController {
@@ -16,6 +18,11 @@ export class TechniciansController {
   @Get()
   getTechnicians() {
     return this.techniciansService.getTechnicians();
+  }
+  @Get('/me')
+  getMe(@User() user: JwtPayload) {
+    console.log(user);
+    return this.techniciansService.getTechnicianById(Number(user.id));
   }
 
   @Get('/:id')

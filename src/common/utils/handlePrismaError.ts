@@ -3,7 +3,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Prisma } from 'prisma/generated/client';
 
 export function handlePrismaError(error: unknown): never {
   if (error instanceof Prisma.PrismaClientKnownRequestError) {

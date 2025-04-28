@@ -12,7 +12,7 @@ import { CreateCategoryDto } from './dtos/createCategory.dto';
 import { UpdateCategoryDto } from './dtos/updateCategory.dto';
 import { CategoriesService } from './categories.service';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { Role } from '@prisma/client';
+import { Role } from 'prisma/generated/client';
 
 @Controller('categories')
 export class CategoriesController {

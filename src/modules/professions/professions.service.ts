@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProfessionDto } from './dto/create-profession.dto';
 import { UpdateProfessionDto } from './dto/update-profession.dto';
-import { PrismaService } from 'nestjs-prisma';
-import { Role } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
+import { Role } from 'prisma/generated/client';
 import { Roles } from '../auth/decorators/roles.decorator';
 
 @Roles(Role.ADMIN)

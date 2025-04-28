@@ -32,6 +32,8 @@ model Technician {
     createdAt              DateTime                @default(now())
     updatedAt              DateTime                @updatedAt
     TechnicianAssignements TechnicianAssignement[]
+
+    Interventions Interventions[]
 }
 
 model Profession {

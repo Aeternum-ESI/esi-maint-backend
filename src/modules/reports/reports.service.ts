@@ -1,10 +1,6 @@
-import { OperationType, ReportStatus } from '@prisma/client';
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from 'nestjs-prisma';
+import { OperationType, ReportStatus } from 'prisma/generated/client';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateReportDto } from './dtos/createReport.dto';
 import { CreateScheduleDto } from './dtos/createSchedule.dto';
 import { UpdateScheduleDto } from './dtos/updateSchedule.dto';
@@ -43,13 +39,19 @@ export class ReportsService {
     });
   }
 
-  cancelReport(id: number) {
-    return this.prismaService.report.update({
+  async cancelReport(id: number) {
+    await this.prismaService.report.update({
       where: {
         id,
       },
       data: {
         status: 'CANCELED',
+      },
+    });
+
+    return await this.prismaService.interventionRequest.deleteMany({
+      where: {
+        reportId: id,
       },
     });
   }
@@ -72,6 +74,28 @@ export class ReportsService {
       where: {
         id,
       },
+      include: {
+        reporter: true,
+        asset: true,
+        category: true,
+
+        interventionRequests: {
+          include: {
+            assignedTo: {
+              include: {
+                technician: {
+                  include: {
+                    user: true,
+                  },
+                },
+              },
+            },
+            report: true,
+            creator: true,
+            Interventions: true,
+          },
+        },
+      },
     });
 
     if (!report) {
@@ -81,7 +105,29 @@ export class ReportsService {
   }
 
   findAllReports() {
-    return this.prismaService.report.findMany();
+    return this.prismaService.report.findMany({
+      include: {
+        reporter: true,
+        asset: true,
+        category: true,
+        interventionRequests: {
+          include: {
+            assignedTo: {
+              include: {
+                technician: {
+                  include: {
+                    user: true,
+                  },
+                },
+              },
+            },
+            report: true,
+            creator: true,
+            Interventions: true,
+          },
+        },
+      },
+    });
   }
 
   updateSchedule(id: number, updateScheduleDto: UpdateScheduleDto) {

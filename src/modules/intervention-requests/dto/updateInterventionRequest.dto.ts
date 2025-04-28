@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Priority } from '@prisma/client';
+import { Priority } from 'prisma/generated/client';
 import { Type } from 'class-transformer';
 import {
   ArrayUnique,

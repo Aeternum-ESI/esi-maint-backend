@@ -5,6 +5,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
 } from '@nestjs/common';
 import { User } from '../auth/decorators/user.decorator';
 import { JwtPayload } from '../auth/dtos/jwtPayload';
@@ -35,11 +36,23 @@ export class InterventionRequestsController {
     return this.interventionRequestsService.getInterventionRequestById(id);
   }
 
+  @Put(':id')
+  updateInterventionRequest(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateInterventionRequestDto: CreateInterventionRequestDto,
+  ) {
+    return this.interventionRequestsService.updateInterventionRequest(
+      id,
+      updateInterventionRequestDto,
+    );
+  }
+
   @Post()
   createInterventionRequest(
     @User() user: JwtPayload,
     @Body() createInterventionRequestDto: CreateInterventionRequestDto,
   ) {
+    console.log('cooucouc');
     return this.interventionRequestsService.createInterventionRequest(
       user.id,
       createInterventionRequestDto,

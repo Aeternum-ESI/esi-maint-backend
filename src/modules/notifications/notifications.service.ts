@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'nestjs-prisma';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { sendMail } from 'src/common/utils/mail';
 
 interface Notification {
   userId: number;
@@ -20,6 +21,15 @@ export class NotificationsService {
     message,
     include = { email: false },
   }: Notification) {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    if (!user) {
+      throw new NotFoundException('user with id ' + userId + ' not found');
+    }
+
     await this.prismaService.notification.create({
       data: {
         message,
@@ -29,6 +39,11 @@ export class NotificationsService {
     });
 
     if (include.email) {
+      sendMail({
+        to: user?.email,
+        text: message,
+        subject: title,
+      });
     }
   }
 

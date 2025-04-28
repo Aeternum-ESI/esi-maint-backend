@@ -3,8 +3,8 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { AssetStatus, AssetType } from '@prisma/client';
-import { PrismaService } from 'nestjs-prisma';
+import { AssetStatus, AssetType } from 'prisma/generated/client';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 

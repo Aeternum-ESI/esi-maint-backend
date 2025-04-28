@@ -1,6 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Priority } from '@prisma/client';
 import { Transform } from 'class-transformer';
-import { IsNumber, IsOptional, IsString, Matches, Min } from 'class-validator';
+import {
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Matches,
+  Min,
+} from 'class-validator';
 import { IsValidDateString } from 'src/common/decorators/isValidDate.decorator';
 
 export class CreateScheduleDto {
@@ -11,6 +19,11 @@ export class CreateScheduleDto {
   @IsString()
   @IsOptional()
   description?: string;
+
+  @ApiProperty({ enum: Priority, example: Priority.LOW })
+  @IsEnum(Priority)
+  @IsOptional()
+  priority: Priority;
 
   @IsNumber()
   @IsOptional()

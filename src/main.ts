@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { ResponseTransformInterceptor } from './common/interceptors/response-transform.interceptor';
+import { sendMail } from './common/utils/mail';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Priority } from '@prisma/client';
+import { Priority } from 'prisma/generated/client';
 import { Type } from 'class-transformer';
 import {
   ArrayUnique,
@@ -18,10 +18,6 @@ export class CreateInterventionRequestDto {
 
   @IsString()
   title: string;
-
-  @ApiProperty({ enum: Priority, example: Priority.LOW })
-  @IsEnum(Priority)
-  priority: Priority;
 
   @IsValidDateString()
   @IsString()

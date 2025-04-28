@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { AssetType } from '@prisma/client';
+import { AssetType } from 'prisma/generated/client';
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateAssetDto {

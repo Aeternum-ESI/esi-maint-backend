@@ -6,30 +6,17 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
 import { CategoriesModule } from './modules/categories/categories.module';
-import { PrismaModule } from 'nestjs-prisma';
+import { PrismaModule } from './modules/prisma/prisma.module';
 import { ProfessionsModule } from './modules/professions/professions.module';
 import { AssetsModule } from './modules/assets/assets.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { InterventionRequestsModule } from './modules/intervention-requests/intervention-requests.module';
+import { StatsModule } from './modules/stats/stats.module';
 
 @Module({
   imports: [
-    PrismaModule.forRoot({
-      isGlobal: true,
-      prismaServiceOptions: {
-        prismaOptions: {
-          omit: {
-            user: {
-              password: true,
-              updatedAt: true,
-              createdAt: true,
-            },
-          },
-        },
-      },
-    }),
     UsersModule,
     AuthModule,
     ConfigModule.forRoot({
@@ -42,6 +29,8 @@ import { InterventionRequestsModule } from './modules/intervention-requests/inte
     TasksModule,
     NotificationsModule,
     InterventionRequestsModule,
+    PrismaModule,
+    StatsModule,
   ],
   providers: [
     {

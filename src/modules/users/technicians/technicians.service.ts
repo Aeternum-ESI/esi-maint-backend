@@ -1,22 +1,29 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ApprovalStatus, Role } from '@prisma/client';
-import { PrismaService } from 'nestjs-prisma';
+import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { UpdateTechnicianDataDto } from './dtos/updateTechnicianData.dto';
-import { Prisma } from '@prisma/client';
+
+import { Prisma, ApprovalStatus, Role } from 'prisma/generated/client';
 
 @Injectable()
 export class TechniciansService {
   constructor(private readonly prismaService: PrismaService) {}
   async getTechnicianById(id: number) {
-    const technician = await this.prismaService.user.findUnique({
-      where: { id, role: Role.TECHNICIAN },
+    const technician = await this.prismaService.technician.findUnique({
+      where: { userId: id },
       include: {
-        technicianData: {
+        user: true,
+        TechnicianAssignements: {
           include: {
-            availabilities: true,
-            profession: true,
+            interventionRequest: {
+              include: {
+                report: true,
+              },
+            },
           },
         },
+        availabilities: true,
+        profession: true,
+        Interventions: true,
       },
     });
     if (!technician) {

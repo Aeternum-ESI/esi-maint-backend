@@ -1,4 +1,4 @@
-import { Day } from '@prisma/client';
+import { Day } from 'prisma/generated/client';
 import {
   IsOptional,
   IsNumber,

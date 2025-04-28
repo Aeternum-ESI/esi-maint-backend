@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'nestjs-prisma';
+import { PrismaService } from '../prisma/prisma.service';
 import { AssetsService } from '../assets/assets.service';
 import { TechniciansService } from '../users/technicians/technicians.service';
 import { CreateInterventionRequestDto } from './dto/createInterventionRequest.dto';
@@ -114,7 +114,7 @@ export class InterventionRequestsService {
     creatorId: number,
     createInterventionRequestDto: CreateInterventionRequestDto,
   ) {
-    const { assignedTo, deadline, priority, reportId, title } =
+    const { assignedTo, deadline, reportId, title } =
       createInterventionRequestDto;
 
     const report = await this.prismaService.report.findUnique({
@@ -148,7 +148,6 @@ export class InterventionRequestsService {
           createdBy: creatorId,
           reportId: reportId,
           title: title,
-          priority: priority,
           deadline: deadline,
         },
         include: {
@@ -269,6 +268,7 @@ export class InterventionRequestsService {
         data: {
           description: completeInterventionRequestDto.description,
           interventionRequestId: id,
+          technicianId: TechnicianId,
         },
       });
 
@@ -337,7 +337,6 @@ export class InterventionRequestsService {
         },
         data: {
           title: title,
-          priority: priority,
           deadline: deadline,
         },
       });

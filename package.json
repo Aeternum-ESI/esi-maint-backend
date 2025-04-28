@@ -8,13 +8,16 @@
     "@nestjs/platform-express": "^11.0.11",
     "@nestjs/schedule": "^5.0.1",
     "@nestjs/swagger": "^11.0.6",
-    "@prisma/client": "6.5.0",
+    "@prisma/client": "6.6.0",
     "@types/cookie-parser": "^1.4.8",
+    "@types/date-fns": "^2.6.3",
     "@types/express": "^5.0.0",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cookie-parser": "^1.4.7",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.5.0",
     "nest-commander": "^3.16.1",
     "nestjs-prisma": "^0.25.0",
     "passport": "^0.7.0",
@@ -27,8 +30,8 @@
   },
   "scripts": {
     "dev": "nest start dev --watch",
-    "migrate": "npx prisma generate && npx prisma migrate dev --name",
-    "seed": "npx ts-node src/seeder/main.ts"
+    "migrate": "npx prisma generate --schema prisma/schema  && npx prisma migrate dev --schema prisma/schema  --name",
+    "seed": "ts-node prisma/seed.ts"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -46,6 +49,6 @@
     "@types/passport-google-oauth2": "^0.1.10",
     "@types/passport-jwt": "^4.0.1",
     "@types/passport-local": "^1.0.38",
-    "prisma": "^6.5.0"
+    "prisma": "^6.6.0"
   }
 }

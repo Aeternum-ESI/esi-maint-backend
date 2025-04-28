@@ -51,6 +51,9 @@ export class UsersController {
       userId: user.id,
       title: 'Demande de rôle',
       message: 'Votre demande de rôle est en cours de traitement',
+      include: {
+        email: true,
+      },
     });
 
     return 'The promotion request has been taken into account.';
@@ -93,6 +96,9 @@ export class UsersController {
       message: validatePromotionDto.isValidated
         ? `Cher(e) ${user.name}, votre demande de rôle a été acceptée.`
         : `Cher(e) ${user.name}, votre demande de rôle a été refusée. Si vous pensez que cela est une erreur veuillez vous rapprocher de l'administration.`,
+      include: {
+        email: true,
+      },
     });
 
     return `Promotion request for ${user.name} has been accepted`;
