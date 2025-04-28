@@ -10,7 +10,7 @@ import { UpdateAssetDto } from './dto/update-asset.dto';
 
 @Injectable()
 export class AssetsService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) { }
 
   async create(createAssetDto: CreateAssetDto) {
     // Validate location relationship based on asset type
@@ -34,6 +34,11 @@ export class AssetsService {
       include: {
         category: true,
         location: true,
+        assignements: {
+          include: {
+            interventionRequest: true
+          }
+        }
       },
     });
   }
