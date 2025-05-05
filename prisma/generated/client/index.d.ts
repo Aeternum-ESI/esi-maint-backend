@@ -2460,6 +2460,7 @@ export namespace Prisma {
     inventoryCode: string | null
     status: $Enums.AssetStatus | null
     type: $Enums.AssetType | null
+    image: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2472,6 +2473,7 @@ export namespace Prisma {
     inventoryCode: string | null
     status: $Enums.AssetStatus | null
     type: $Enums.AssetType | null
+    image: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2484,6 +2486,7 @@ export namespace Prisma {
     inventoryCode: number
     status: number
     type: number
+    image: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2510,6 +2513,7 @@ export namespace Prisma {
     inventoryCode?: true
     status?: true
     type?: true
+    image?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2522,6 +2526,7 @@ export namespace Prisma {
     inventoryCode?: true
     status?: true
     type?: true
+    image?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2534,6 +2539,7 @@ export namespace Prisma {
     inventoryCode?: true
     status?: true
     type?: true
+    image?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2633,6 +2639,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image: string | null
     createdAt: Date
     updatedAt: Date
     _count: AssetCountAggregateOutputType | null
@@ -2664,6 +2671,7 @@ export namespace Prisma {
     inventoryCode?: boolean
     status?: boolean
     type?: boolean
+    image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     subAssets?: boolean | Asset$subAssetsArgs<ExtArgs>
@@ -2683,6 +2691,7 @@ export namespace Prisma {
     inventoryCode?: boolean
     status?: boolean
     type?: boolean
+    image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     location?: boolean | Asset$locationArgs<ExtArgs>
@@ -2697,6 +2706,7 @@ export namespace Prisma {
     inventoryCode?: boolean
     status?: boolean
     type?: boolean
+    image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     location?: boolean | Asset$locationArgs<ExtArgs>
@@ -2711,11 +2721,12 @@ export namespace Prisma {
     inventoryCode?: boolean
     status?: boolean
     type?: boolean
+    image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "locationId" | "categoryId" | "name" | "inventoryCode" | "status" | "type" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
+  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "locationId" | "categoryId" | "name" | "inventoryCode" | "status" | "type" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
   export type AssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subAssets?: boolean | Asset$subAssetsArgs<ExtArgs>
     reports?: boolean | Asset$reportsArgs<ExtArgs>
@@ -2752,6 +2763,7 @@ export namespace Prisma {
       inventoryCode: string
       status: $Enums.AssetStatus
       type: $Enums.AssetType
+      image: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["asset"]>
@@ -3190,6 +3202,7 @@ export namespace Prisma {
     readonly inventoryCode: FieldRef<"Asset", 'String'>
     readonly status: FieldRef<"Asset", 'AssetStatus'>
     readonly type: FieldRef<"Asset", 'AssetType'>
+    readonly image: FieldRef<"Asset", 'String'>
     readonly createdAt: FieldRef<"Asset", 'DateTime'>
     readonly updatedAt: FieldRef<"Asset", 'DateTime'>
   }
@@ -17869,6 +17882,7 @@ export namespace Prisma {
     inventoryCode: 'inventoryCode',
     status: 'status',
     type: 'type',
+    image: 'image',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -18161,6 +18175,7 @@ export namespace Prisma {
     inventoryCode?: StringFilter<"Asset"> | string
     status?: EnumAssetStatusFilter<"Asset"> | $Enums.AssetStatus
     type?: EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
+    image?: StringNullableFilter<"Asset"> | string | null
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     subAssets?: AssetListRelationFilter
@@ -18179,6 +18194,7 @@ export namespace Prisma {
     inventoryCode?: SortOrder
     status?: SortOrder
     type?: SortOrder
+    image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     subAssets?: AssetOrderByRelationAggregateInput
@@ -18200,6 +18216,7 @@ export namespace Prisma {
     inventoryCode?: StringFilter<"Asset"> | string
     status?: EnumAssetStatusFilter<"Asset"> | $Enums.AssetStatus
     type?: EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
+    image?: StringNullableFilter<"Asset"> | string | null
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     subAssets?: AssetListRelationFilter
@@ -18218,6 +18235,7 @@ export namespace Prisma {
     inventoryCode?: SortOrder
     status?: SortOrder
     type?: SortOrder
+    image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AssetCountOrderByAggregateInput
@@ -18238,6 +18256,7 @@ export namespace Prisma {
     inventoryCode?: StringWithAggregatesFilter<"Asset"> | string
     status?: EnumAssetStatusWithAggregatesFilter<"Asset"> | $Enums.AssetStatus
     type?: EnumAssetTypeWithAggregatesFilter<"Asset"> | $Enums.AssetType
+    image?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
   }
@@ -19111,6 +19130,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -19129,6 +19149,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -19142,6 +19163,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -19160,6 +19182,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -19176,6 +19199,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19185,6 +19209,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19197,6 +19222,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20088,6 +20114,20 @@ export namespace Prisma {
     not?: NestedEnumAssetTypeFilter<$PrismaModel> | $Enums.AssetType
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -20162,6 +20202,7 @@ export namespace Prisma {
     inventoryCode?: SortOrder
     status?: SortOrder
     type?: SortOrder
+    image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20180,6 +20221,7 @@ export namespace Prisma {
     inventoryCode?: SortOrder
     status?: SortOrder
     type?: SortOrder
+    image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20192,6 +20234,7 @@ export namespace Prisma {
     inventoryCode?: SortOrder
     status?: SortOrder
     type?: SortOrder
+    image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20271,6 +20314,23 @@ export namespace Prisma {
     _max?: NestedEnumAssetTypeFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -20283,20 +20343,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type CategoryListRelationFilter = {
@@ -20354,23 +20400,6 @@ export namespace Prisma {
   export type CategorySumOrderByAggregateInput = {
     id?: SortOrder
     parentId?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type CategoryScalarRelationFilter = {
@@ -21129,6 +21158,10 @@ export namespace Prisma {
     set?: $Enums.AssetType
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -21369,10 +21402,6 @@ export namespace Prisma {
     connectOrCreate?: ScheduleCreateOrConnectWithoutCategoryInput | ScheduleCreateOrConnectWithoutCategoryInput[]
     createMany?: ScheduleCreateManyCategoryInputEnvelope
     connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type AssetUpdateManyWithoutCategoryNestedInput = {
@@ -22407,6 +22436,20 @@ export namespace Prisma {
     not?: NestedEnumAssetTypeFilter<$PrismaModel> | $Enums.AssetType
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -22509,34 +22552,6 @@ export namespace Prisma {
     _max?: NestedEnumAssetTypeFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -22552,6 +22567,20 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedEnumInterventionRequestStatusFilter<$PrismaModel = never> = {
@@ -22691,6 +22720,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -22707,6 +22737,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -22791,6 +22822,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: ReportCreateNestedManyWithoutAssetInput
@@ -22808,6 +22840,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: ReportUncheckedCreateNestedManyWithoutAssetInput
@@ -22911,6 +22944,7 @@ export namespace Prisma {
     inventoryCode?: StringFilter<"Asset"> | string
     status?: EnumAssetStatusFilter<"Asset"> | $Enums.AssetStatus
     type?: EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
+    image?: StringNullableFilter<"Asset"> | string | null
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
   }
@@ -22993,6 +23027,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: ReportUpdateManyWithoutAssetNestedInput
@@ -23010,6 +23045,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: ReportUncheckedUpdateManyWithoutAssetNestedInput
@@ -23092,6 +23128,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -23108,6 +23145,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -23889,6 +23927,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -23906,6 +23945,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -23997,6 +24037,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -24014,6 +24055,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -24176,6 +24218,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -24193,6 +24236,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -24327,6 +24371,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -24344,6 +24389,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -24424,6 +24470,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -24441,6 +24488,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -24537,6 +24585,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -24554,6 +24603,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -25339,6 +25389,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25382,6 +25433,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -25398,6 +25450,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -25413,6 +25466,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25525,6 +25579,7 @@ export namespace Prisma {
     inventoryCode: string
     status: $Enums.AssetStatus
     type: $Enums.AssetType
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25577,6 +25632,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -25593,6 +25649,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -25608,6 +25665,7 @@ export namespace Prisma {
     inventoryCode?: StringFieldUpdateOperationsInput | string
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

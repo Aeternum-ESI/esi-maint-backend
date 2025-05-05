@@ -6,6 +6,7 @@ model Asset {
     inventoryCode String
     status        AssetStatus
     type          AssetType
+    image         String?
 
     subAssets    Asset[]                 @relation("AssetLocation")
     reports      Report[]

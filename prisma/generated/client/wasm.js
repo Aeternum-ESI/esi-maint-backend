@@ -122,6 +122,7 @@ exports.Prisma.AssetScalarFieldEnum = {
   inventoryCode: 'inventoryCode',
   status: 'status',
   type: 'type',
+  image: 'image',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

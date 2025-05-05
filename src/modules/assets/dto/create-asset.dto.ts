@@ -16,4 +16,7 @@ export class CreateAssetDto {
   @IsEnum(AssetType)
   @ApiProperty({ enum: AssetType })
   type: AssetType;
+  @IsString()
+  @IsOptional()
+  image?: string;
 }
