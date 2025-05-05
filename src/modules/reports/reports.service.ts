@@ -57,7 +57,11 @@ export class ReportsService {
   }
 
   findAllScheduled() {
-    return this.prismaService.schedule.findMany();
+    return this.prismaService.schedule.findMany({
+      include: {
+        scheduler: true,
+      },
+    });
   }
 
   schedule(schedulerId: number, createScheduleDto: CreateScheduleDto) {
