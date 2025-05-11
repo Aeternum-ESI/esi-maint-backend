@@ -54,6 +54,7 @@
     "@types/passport-google-oauth2": "^0.1.10",
     "@types/passport-jwt": "^4.0.1",
     "@types/passport-local": "^1.0.38",
-    "prisma": "^6.6.0"
+    "prisma": "^6.6.0",
+    "tsx": "^4.19.4"
   }
 }

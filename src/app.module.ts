@@ -14,6 +14,7 @@ import { TasksModule } from './modules/tasks/tasks.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { InterventionRequestsModule } from './modules/intervention-requests/intervention-requests.module';
 import { StatsModule } from './modules/stats/stats.module';
+import { SeederModule } from './modules/seeder/seeder.module';
 
 @Module({
   imports: [
@@ -31,6 +32,8 @@ import { StatsModule } from './modules/stats/stats.module';
     InterventionRequestsModule,
     PrismaModule,
     StatsModule,
+    SeederModule,
+    SeederModule,
   ],
   providers: [
     {
