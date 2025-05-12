@@ -6,6 +6,7 @@ import { CreateScheduleDto } from './dtos/createSchedule.dto';
 import { UpdateScheduleDto } from './dtos/updateSchedule.dto';
 import { AssetsService } from '../assets/assets.service';
 import { CategoriesService } from '../categories/categories.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class ReportsService {
@@ -13,6 +14,7 @@ export class ReportsService {
     private readonly prismaService: PrismaService,
     private readonly assetsService: AssetsService,
     private readonly categoryService: CategoriesService,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   async createReport(
@@ -27,6 +29,21 @@ export class ReportsService {
 
     if (createReportDto.categoryId) {
       await this.categoryService.getCategoryById(createReportDto.categoryId);
+    }
+
+    const admins = await this.prismaService.user.findMany({
+      where: {
+        role: 'ADMIN',
+        approvalStatus : "VALIDATED"
+      },
+    });
+
+    for (const admin of admins) {
+      await this.notificationsService.notify({
+        userId: admin.id,
+        message: `New report created by ${reporterId}`,
+        title: 'New Report',
+      });
     }
 
     return this.prismaService.report.create({
