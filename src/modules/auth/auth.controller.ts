@@ -1,9 +1,11 @@
 import {
+  Body,
   Controller,
   Get,
   HttpException,
   HttpStatus,
   Logger,
+  Post,
   Req,
   Res,
   UseGuards,
@@ -17,6 +19,7 @@ import { JwtPayload } from './dtos/jwtPayload';
 import { GoogleUserDto } from './dtos/register.dto';
 import { Response } from 'express';
 import { FRONTEND_URL } from 'src/common/utils/const';
+import { Role } from 'prisma/generated/client';
 
 @Controller('auth')
 export class AuthController {
@@ -48,5 +51,12 @@ export class AuthController {
   @Get('me')
   async me(@User() User: JwtPayload) {
     return this.authService.findUserByEmail(User.email);
+  }
+
+  @Public()
+  @Post('mocklogin')
+  async mockLogin(@Body() body: { role: Role }) {
+    console.log(body);
+    return await this.authService.mockLogin(body.role);
   }
 }

@@ -14,6 +14,7 @@ export class SeederController {
   constructor(private readonly seederService: SeederService) {}
 
   @Get()
+  @Public()
   async seedPrompt() {
     return {
       message:
@@ -24,7 +25,7 @@ export class SeederController {
 
   @Get('confirm')
   @Public()
-  @Redirect('/')
+ 
   async seedDatabase(@Query('key') confirmationKey: string) {
     if (confirmationKey !== 'confirm') {
       throw new HttpException(
@@ -33,8 +34,16 @@ export class SeederController {
       );
     }
 
-    await this.seederService.clearDatabase();
-    await this.seederService.seedDatabase();
+    await this.seederService.seedDatabase().catch((error) => {
+      console.error('Error seeding database:', error);
+      throw new HttpException(
+        'Error seeding database. Please check the server logs for more details.',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    });
 
+    return {
+      message: 'Database seeded successfully.',
+    };
   }
 }

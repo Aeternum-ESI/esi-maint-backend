@@ -114,13 +114,11 @@ export class InterventionRequestsService {
     creatorId: number,
     createInterventionRequestDto: CreateInterventionRequestDto,
   ) {
-    const { assignedTo, deadline, reportId, title } =
-      createInterventionRequestDto;
+    const { assignedTo, deadline, reportId, title } = createInterventionRequestDto;
 
+    // Move validations outside of transaction
     const report = await this.prismaService.report.findUnique({
-      where: {
-        id: reportId,
-      },
+      where: { id: reportId },
     });
 
     if (!report) {
@@ -139,7 +137,17 @@ export class InterventionRequestsService {
       );
     }
 
-    // Use transaction to ensure atomicity
+    // Pre-validate technicians and locations outside transaction
+    await Promise.all(
+      assignedTo.map(async (assignment) => {
+        await this.techniciansService.getTechnicianById(assignment.technicianId);
+        if (assignment.locationId) {
+          await this.assetsService.getLocationById(assignment.locationId);
+        }
+      })
+    );
+
+    // Use transaction only for database writes
     return this.prismaService.$transaction(async (prisma) => {
       // 1. Create the intervention request
       const newInterventionRequest = await prisma.interventionRequest.create({
@@ -155,50 +163,30 @@ export class InterventionRequestsService {
         },
       });
 
-      // 2. Create technician assignments using the new intervention request ID
+      // 2. Create technician assignments
       const technicianAssignments = await Promise.all(
-        assignedTo.map(async (assignment) => {
-          await this.techniciansService.getTechnicianById(
-            assignment.technicianId,
-          );
-
-          // Check if location exists if provided
-          if (assignment.locationId) {
-            await this.assetsService.getLocationById(assignment.locationId);
-          }
-
-          await prisma.technicianAssignement.create({
+        assignedTo.map(assignment => 
+          prisma.technicianAssignement.create({
             data: {
               technicianId: assignment.technicianId,
               interventionRequestId: newInterventionRequest.id,
               locationId: assignment.locationId,
             },
-          });
-        }),
+          })
+        ),
       );
 
       // 3. Update the report status to ASSIGNED
       await prisma.report.update({
-        where: {
-          id: reportId,
-        },
-        data: {
-          status: 'ASSIGNED',
-        },
+        where: { id: reportId },
+        data: { status: 'ASSIGNED' },
       });
 
-      // 4. Update the asset status to UNDER_MAINTENANCE if the report is corrective
-      if (
-        newInterventionRequest.report.type === 'CORRECTIVE' &&
-        newInterventionRequest.report.assetId
-      ) {
+      // 4. Update the asset status if the report is corrective
+      if (report.type === 'CORRECTIVE' && report.assetId) {
         await prisma.asset.update({
-          where: {
-            id: newInterventionRequest.report.assetId,
-          },
-          data: {
-            status: 'UNDER_MAINTENANCE',
-          },
+          where: { id: report.assetId },
+          data: { status: 'UNDER_MAINTENANCE' },
         });
       }
 
