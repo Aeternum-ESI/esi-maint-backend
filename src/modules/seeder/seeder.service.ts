@@ -305,7 +305,7 @@ export class SeederService {
     const interventionRequests = selectedReports.map((report) => {
       const randomAdmin = adminUsers[randomInt(0, adminUsers.length)];
 
-      const numTechnicians = Math.min(technicianUsers.length, randomInt(1, 4));
+      const numTechnicians =randomInt(1,technicianUsers.length+1);
       const shuffledTechnicians = [...technicianUsers].sort(
         () => Math.random() - 0.5,
       );
@@ -346,7 +346,7 @@ export class SeederService {
       this.logger.log(
         `Seeded batch of ${batch.length} intervention requests (${
           i + 1
-        } to ${Math.min(i + batchSize, interventionRequests.length)})`,
+        }`
       );
     }
 
