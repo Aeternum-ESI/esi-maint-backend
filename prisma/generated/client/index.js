@@ -309,7 +309,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\YOUCEF\\PRJ2CP\\back\\prisma\\generated\\client",
+      "value": "C:\\Users\\pc\\Documents\\zak\\backend\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -325,7 +325,7 @@ const config = {
     "previewFeatures": [
       "prismaSchemaFolder"
     ],
-    "sourceFilePath": "C:\\Users\\YOUCEF\\PRJ2CP\\back\\prisma\\schema\\main.prisma",
+    "sourceFilePath": "C:\\Users\\pc\\Documents\\zak\\backend\\prisma\\schema\\main.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -343,7 +343,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "file:./dev.db?connection_limit=1&socket_timeout=10"
+        "value": "file:./dev.db?connection_limit=1&socket_timeout=5000"
       }
     }
   },
