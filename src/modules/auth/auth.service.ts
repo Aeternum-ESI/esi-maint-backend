@@ -6,6 +6,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { GoogleUserDto } from './dtos/register.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { Role } from 'prisma/generated/client';
 
 @Injectable()
 export class AuthService {
@@ -55,8 +56,10 @@ export class AuthService {
         id: newUser.id,
         email: newUser.email,
       });
-    } catch(e) {
-      throw new InternalServerErrorException('Error while registering user'+ e.message);
+    } catch (e) {
+      throw new InternalServerErrorException(
+        'Error while registering user' + e.message,
+      );
     }
   }
 
@@ -72,5 +75,48 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  async mockLogin(role: Role) {
+    if (role === 'ADMIN') {
+      const response  = await this.signIn({
+        email: 'admin@esi.dz',
+        fullName: 'Admin User',
+        picture: '',
+        provider: 'mock',
+        providerId: 0,
+      });
+      await this.prismaService.user.update({
+        where: { email: 'admin@esi.dz' },
+        data: { role: 'ADMIN' , approvalStatus : 'VALIDATED'},
+      });
+
+      return response;
+    }
+
+    if (role === 'TECHNICIAN') {
+      const users = await this.prismaService.user.findMany({
+        where: {
+          role: 'TECHNICIAN',
+          approvalStatus: 'VALIDATED',
+        },
+      });
+
+      if (users.length === 0) {
+        return this.signIn({
+          email: 'technician@esi.dz',
+          fullName: 'Technician User',
+          picture: '',
+          provider: 'mock',
+          providerId: 0,
+        });
+      }
+
+      return this.generateJwt({
+        id: users[0].id,
+        email: users[0].email,
+        name: users[0].name,
+      });
+    }
   }
 }

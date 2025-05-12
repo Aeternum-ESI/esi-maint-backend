@@ -60,6 +60,7 @@ export class ReportsService {
     return this.prismaService.schedule.findMany({
       include: {
         scheduler: true,
+        asset: true,
       },
     });
   }
