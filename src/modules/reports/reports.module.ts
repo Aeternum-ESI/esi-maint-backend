@@ -8,6 +8,7 @@ import { CategoriesService } from '../categories/categories.service';
 @Module({
   controllers: [ReportsController],
   providers: [ReportsService, CategoriesService],
+  exports: [ReportsService],
   imports: [AssetsModule],
 })
 export class ReportsModule {}

@@ -55,8 +55,8 @@ export class AuthService {
         id: newUser.id,
         email: newUser.email,
       });
-    } catch {
-      throw new InternalServerErrorException('Error while registering user');
+    } catch(e) {
+      throw new InternalServerErrorException('Error while registering user'+ e.message);
     }
   }
 

@@ -9,7 +9,7 @@ export class CreateAssetDto {
   inventoryCode: string;
   @IsNumber()
   @IsOptional()
-  locationId?: number;
+  locationId?: number ;
   @IsOptional()
   @IsNumber()
   categoryId?: number;
@@ -19,4 +19,8 @@ export class CreateAssetDto {
   @IsString()
   @IsOptional()
   image?: string;
+
+  @IsOptional()
+  @IsString({ each: true })
+  file?: string ;
 }

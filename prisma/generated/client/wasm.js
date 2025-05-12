@@ -123,6 +123,7 @@ exports.Prisma.AssetScalarFieldEnum = {
   status: 'status',
   type: 'type',
   image: 'image',
+  file: 'file',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

@@ -1,12 +1,40 @@
-import { Controller, Get } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  HttpException,
+  HttpStatus,
+  Redirect,
+} from '@nestjs/common';
 import { SeederService } from './seeder.service';
+import { Public } from '../auth/decorators/public.decorator';
 
 @Controller('seeder')
 export class SeederController {
   constructor(private readonly seederService: SeederService) {}
 
-  @Get('')
-  async seed() {
-    await this.seederService.seed();
+  @Get()
+  async seedPrompt() {
+    return {
+      message:
+        'WARNING: This will clear all data in the database and replace it with seed data.',
+      instructions: 'To confirm, please visit /seeder/confirm?key=confirm',
+    };
+  }
+
+  @Get('confirm')
+  @Public()
+  @Redirect('/')
+  async seedDatabase(@Query('key') confirmationKey: string) {
+    if (confirmationKey !== 'confirm') {
+      throw new HttpException(
+        'Confirmation key required. Please use ?key=confirm to proceed.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    await this.seederService.clearDatabase();
+    await this.seederService.seedDatabase();
+
   }
 }
