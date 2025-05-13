@@ -293,6 +293,7 @@ export class SeederService {
       );
       return;
     }
+    this.logger.log("here hre hresrofes 1")
 
     // Select reports to assign
     const reportsToAssign = randomInt(1, reports.length);
@@ -324,6 +325,8 @@ export class SeederService {
         deadline,
       };
     });
+
+    this.logger.log("here hre hresrofes 2")
 
     // Process in batches of 10
     const batchSize = 10;

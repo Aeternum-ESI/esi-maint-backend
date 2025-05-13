@@ -3,11 +3,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
 import { AssetsService } from '../assets/assets.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { TechniciansService } from '../users/technicians/technicians.service';
-import { CreateInterventionRequestDto } from './dto/createInterventionRequest.dto';
 import { CompleteInterventionRequestDto } from './dto/completeInterventionRequest.dto';
+import { CreateInterventionRequestDto } from './dto/createInterventionRequest.dto';
 import { UpdateInterventionRequestDto } from './dto/updateInterventionRequest.dto';
 
 @Injectable()
@@ -114,7 +114,12 @@ export class InterventionRequestsService {
     creatorId: number,
     createInterventionRequestDto: CreateInterventionRequestDto,
   ) {
-    const { assignedTo, deadline, reportId, title } = createInterventionRequestDto;
+    console.log(
+      'Creating intervention request with DTO:',
+      createInterventionRequestDto,
+    );
+    const { assignedTo, deadline, reportId, title } =
+      createInterventionRequestDto;
 
     // Move validations outside of transaction
     const report = await this.prismaService.report.findUnique({
@@ -140,17 +145,19 @@ export class InterventionRequestsService {
     // Pre-validate technicians and locations outside transaction
     await Promise.all(
       assignedTo.map(async (assignment) => {
-        await this.techniciansService.getTechnicianById(assignment.technicianId);
+        await this.techniciansService.getTechnicianById(
+          assignment.technicianId,
+        );
         if (assignment.locationId) {
           await this.assetsService.getLocationById(assignment.locationId);
         }
-      })
+      }),
     );
 
-    // Use transaction only for database writes
-    return this.prismaService.$transaction(async (prisma) => {
-      // 1. Create the intervention request
-      const newInterventionRequest = await prisma.interventionRequest.create({
+    // Use regular Prisma calls instead of a transaction
+    // 1. Create the intervention request
+    const newInterventionRequest =
+      await this.prismaService.interventionRequest.create({
         data: {
           status: 'IN_PROGRESS',
           createdBy: creatorId,
@@ -163,39 +170,38 @@ export class InterventionRequestsService {
         },
       });
 
-      // 2. Create technician assignments
-      const technicianAssignments = await Promise.all(
-        assignedTo.map(assignment => 
-          prisma.technicianAssignement.create({
-            data: {
-              technicianId: assignment.technicianId,
-              interventionRequestId: newInterventionRequest.id,
-              locationId: assignment.locationId,
-            },
-          })
-        ),
-      );
+    // 2. Create technician assignments
+    const technicianAssignments = await Promise.all(
+      assignedTo.map((assignment) =>
+        this.prismaService.technicianAssignement.create({
+          data: {
+            technicianId: assignment.technicianId,
+            interventionRequestId: newInterventionRequest.id,
+            locationId: assignment.locationId,
+          },
+        }),
+      ),
+    );
 
-      // 3. Update the report status to ASSIGNED
-      await prisma.report.update({
-        where: { id: reportId },
-        data: { status: 'ASSIGNED' },
-      });
-
-      // 4. Update the asset status if the report is corrective
-      if (report.type === 'CORRECTIVE' && report.assetId) {
-        await prisma.asset.update({
-          where: { id: report.assetId },
-          data: { status: 'UNDER_MAINTENANCE' },
-        });
-      }
-
-      // 5. Return the intervention request with its assignments
-      return {
-        ...newInterventionRequest,
-        technicianAssignments,
-      };
+    // 3. Update the report status to ASSIGNED
+    await this.prismaService.report.update({
+      where: { id: reportId },
+      data: { status: 'ASSIGNED' },
     });
+
+    // 4. Update the asset status if the report is corrective
+    if (report.type === 'CORRECTIVE' && report.assetId) {
+      await this.prismaService.asset.update({
+        where: { id: report.assetId },
+        data: { status: 'UNDER_MAINTENANCE' },
+      });
+    }
+
+    // 5. Return the intervention request with its assignments
+    return {
+      ...newInterventionRequest,
+      technicianAssignments,
+    };
   }
 
   async completeInterventionRequest(
