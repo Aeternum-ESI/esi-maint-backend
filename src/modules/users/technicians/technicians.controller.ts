@@ -21,7 +21,6 @@ export class TechniciansController {
   }
   @Get('/me')
   getMe(@User() user: JwtPayload) {
-    console.log(user);
     return this.techniciansService.getTechnicianById(Number(user.id));
   }
 

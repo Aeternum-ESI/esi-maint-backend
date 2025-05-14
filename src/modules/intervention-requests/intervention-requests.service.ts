@@ -114,10 +114,7 @@ export class InterventionRequestsService {
     creatorId: number,
     createInterventionRequestDto: CreateInterventionRequestDto,
   ) {
-    console.log(
-      'Creating intervention request with DTO:',
-      createInterventionRequestDto,
-    );
+
     const { assignedTo, deadline, reportId, title } =
       createInterventionRequestDto;
 

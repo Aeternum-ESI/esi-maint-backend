@@ -78,6 +78,7 @@ export class ReportsService {
       include: {
         scheduler: true,
         asset: true,
+        category: true,
       },
     });
   }

@@ -56,7 +56,6 @@ export class AuthController {
   @Public()
   @Post('mocklogin')
   async mockLogin(@Body() body: { role: Role }) {
-    console.log(body);
     return await this.authService.mockLogin(body.role);
   }
 }

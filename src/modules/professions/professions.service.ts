@@ -23,7 +23,6 @@ export class ProfessionsService {
     const category = await this.prismaService.profession.findUnique({
       where: { id },
     });
-    console.log(category);
     if (!category) {
       throw new NotFoundException(`Profession with id ${id} does not exist`);
     }

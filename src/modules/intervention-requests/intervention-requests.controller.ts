@@ -52,7 +52,6 @@ export class InterventionRequestsController {
     @User() user: JwtPayload,
     @Body() createInterventionRequestDto: CreateInterventionRequestDto,
   ) {
-    console.log('cooucouc');
     return this.interventionRequestsService.createInterventionRequest(
       user.id,
       createInterventionRequestDto,

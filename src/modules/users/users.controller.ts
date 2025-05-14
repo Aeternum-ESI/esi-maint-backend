@@ -71,7 +71,6 @@ export class UsersController {
 
   @Get('notifications')
   getNotifications(@User() user: JwtPayload) {
-    console.log(user);
     return this.notificationsService.getNotifications(user.id);
   }
 
