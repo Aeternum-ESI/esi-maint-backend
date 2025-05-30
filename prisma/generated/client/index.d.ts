@@ -2461,7 +2461,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus | null
     type: $Enums.AssetType | null
     image: string | null
-    file: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2475,7 +2474,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus | null
     type: $Enums.AssetType | null
     image: string | null
-    file: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2489,7 +2487,6 @@ export namespace Prisma {
     status: number
     type: number
     image: number
-    file: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2517,7 +2514,6 @@ export namespace Prisma {
     status?: true
     type?: true
     image?: true
-    file?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2531,7 +2527,6 @@ export namespace Prisma {
     status?: true
     type?: true
     image?: true
-    file?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2545,7 +2540,6 @@ export namespace Prisma {
     status?: true
     type?: true
     image?: true
-    file?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2646,7 +2640,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image: string | null
-    file: string | null
     createdAt: Date
     updatedAt: Date
     _count: AssetCountAggregateOutputType | null
@@ -2679,7 +2672,6 @@ export namespace Prisma {
     status?: boolean
     type?: boolean
     image?: boolean
-    file?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     subAssets?: boolean | Asset$subAssetsArgs<ExtArgs>
@@ -2700,7 +2692,6 @@ export namespace Prisma {
     status?: boolean
     type?: boolean
     image?: boolean
-    file?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     location?: boolean | Asset$locationArgs<ExtArgs>
@@ -2716,7 +2707,6 @@ export namespace Prisma {
     status?: boolean
     type?: boolean
     image?: boolean
-    file?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     location?: boolean | Asset$locationArgs<ExtArgs>
@@ -2732,12 +2722,11 @@ export namespace Prisma {
     status?: boolean
     type?: boolean
     image?: boolean
-    file?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "locationId" | "categoryId" | "name" | "inventoryCode" | "status" | "type" | "image" | "file" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
+  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "locationId" | "categoryId" | "name" | "inventoryCode" | "status" | "type" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
   export type AssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subAssets?: boolean | Asset$subAssetsArgs<ExtArgs>
     reports?: boolean | Asset$reportsArgs<ExtArgs>
@@ -2775,7 +2764,6 @@ export namespace Prisma {
       status: $Enums.AssetStatus
       type: $Enums.AssetType
       image: string | null
-      file: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["asset"]>
@@ -3215,7 +3203,6 @@ export namespace Prisma {
     readonly status: FieldRef<"Asset", 'AssetStatus'>
     readonly type: FieldRef<"Asset", 'AssetType'>
     readonly image: FieldRef<"Asset", 'String'>
-    readonly file: FieldRef<"Asset", 'String'>
     readonly createdAt: FieldRef<"Asset", 'DateTime'>
     readonly updatedAt: FieldRef<"Asset", 'DateTime'>
   }
@@ -17896,7 +17883,6 @@ export namespace Prisma {
     status: 'status',
     type: 'type',
     image: 'image',
-    file: 'file',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -18190,7 +18176,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFilter<"Asset"> | $Enums.AssetStatus
     type?: EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
     image?: StringNullableFilter<"Asset"> | string | null
-    file?: StringNullableFilter<"Asset"> | string | null
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     subAssets?: AssetListRelationFilter
@@ -18210,7 +18195,6 @@ export namespace Prisma {
     status?: SortOrder
     type?: SortOrder
     image?: SortOrderInput | SortOrder
-    file?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     subAssets?: AssetOrderByRelationAggregateInput
@@ -18233,7 +18217,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFilter<"Asset"> | $Enums.AssetStatus
     type?: EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
     image?: StringNullableFilter<"Asset"> | string | null
-    file?: StringNullableFilter<"Asset"> | string | null
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     subAssets?: AssetListRelationFilter
@@ -18253,7 +18236,6 @@ export namespace Prisma {
     status?: SortOrder
     type?: SortOrder
     image?: SortOrderInput | SortOrder
-    file?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AssetCountOrderByAggregateInput
@@ -18275,7 +18257,6 @@ export namespace Prisma {
     status?: EnumAssetStatusWithAggregatesFilter<"Asset"> | $Enums.AssetStatus
     type?: EnumAssetTypeWithAggregatesFilter<"Asset"> | $Enums.AssetType
     image?: StringNullableWithAggregatesFilter<"Asset"> | string | null
-    file?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
   }
@@ -19150,7 +19131,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -19170,7 +19150,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -19185,7 +19164,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -19205,7 +19183,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -19223,7 +19200,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19234,7 +19210,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19248,7 +19223,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20229,7 +20203,6 @@ export namespace Prisma {
     status?: SortOrder
     type?: SortOrder
     image?: SortOrder
-    file?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20249,7 +20222,6 @@ export namespace Prisma {
     status?: SortOrder
     type?: SortOrder
     image?: SortOrder
-    file?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20263,7 +20235,6 @@ export namespace Prisma {
     status?: SortOrder
     type?: SortOrder
     image?: SortOrder
-    file?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -22750,7 +22721,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -22768,7 +22738,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -22854,7 +22823,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: ReportCreateNestedManyWithoutAssetInput
@@ -22873,7 +22841,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: ReportUncheckedCreateNestedManyWithoutAssetInput
@@ -22978,7 +22945,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFilter<"Asset"> | $Enums.AssetStatus
     type?: EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
     image?: StringNullableFilter<"Asset"> | string | null
-    file?: StringNullableFilter<"Asset"> | string | null
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
   }
@@ -23062,7 +23028,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: ReportUpdateManyWithoutAssetNestedInput
@@ -23081,7 +23046,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: ReportUncheckedUpdateManyWithoutAssetNestedInput
@@ -23165,7 +23129,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -23183,7 +23146,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -23966,7 +23928,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -23985,7 +23946,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -24078,7 +24038,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -24097,7 +24056,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -24261,7 +24219,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -24280,7 +24237,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -24416,7 +24372,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -24435,7 +24390,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -24517,7 +24471,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetCreateNestedManyWithoutLocationInput
@@ -24536,7 +24489,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     subAssets?: AssetUncheckedCreateNestedManyWithoutLocationInput
@@ -24634,7 +24586,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -24653,7 +24604,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -25440,7 +25390,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25485,7 +25434,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -25503,7 +25451,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -25520,7 +25467,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25634,7 +25580,6 @@ export namespace Prisma {
     status: $Enums.AssetStatus
     type: $Enums.AssetType
     image?: string | null
-    file?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25688,7 +25633,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUpdateManyWithoutLocationNestedInput
@@ -25706,7 +25650,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subAssets?: AssetUncheckedUpdateManyWithoutLocationNestedInput
@@ -25723,7 +25666,6 @@ export namespace Prisma {
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    file?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

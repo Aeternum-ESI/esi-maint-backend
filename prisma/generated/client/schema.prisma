@@ -7,7 +7,6 @@ model Asset {
   status        AssetStatus
   type          AssetType
   image         String?
-  file          String?
 
   subAssets    Asset[]                 @relation("AssetLocation")
   reports      Report[]
